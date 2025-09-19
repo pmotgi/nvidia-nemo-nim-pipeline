@@ -10,6 +10,14 @@ This pipeline is designed to:
 3.  **Export** the fine-tuned adapter and merge it with the base model, converting it to the vLLM-HF (Hugging Face) format required by NVIDIA NIM.
 4.  **Deploy** the NVIDIA NIM (NVIDIA Inference Microservice) to serve the fine-tuned model, supporting both the base model and the LoRA adapters.
 
+## Sample Example
+
+This repository provides a concrete example of the pipeline:
+
+A Llama3.1-8B base model is fine-tuned on the SQuAD dataset. The fine-tuned model is then exported from NeMo format to the `vllm_hf` format using the `hf-peft` load connector in the NeMo export service. This ensures that the model adapter is read by NeMo correctly.
+
+Currently, NVIDIA NIM has specific requirements for model formats (older NeMo `.tar` files or plain Hugging Face models). Since the NeMo toolkit is experimental, this pipeline includes the necessary conversion step to make the output compatible with NIM.
+
 ## Prerequisites
 
 Before you begin, ensure you have the following:
@@ -49,7 +57,7 @@ The pipeline is executed by applying the Kubernetes YAML files in a specific ord
 4.  **Deploy NIM:**
     This step deploys the NVIDIA Inference Microservice to serve the fine-tuned model.
     ```bash
-    kubectl apply -f llama3-8b-nemo-nim-pipeline/nim-llama-deployment.yaml
+    kubectl apply -f llama3-8b-nimo-nim-pipeline/nim-llama-deployment.yaml
     ```
 
 5.  **Verify NIM Deployment:**
@@ -64,6 +72,34 @@ The pipeline is executed by applying the Kubernetes YAML files in a specific ord
     ```bash
     curl -s http://localhost:8000/v1/models | jq .
     ```
+
+## How to Test
+
+Once the NIM service is running and you have port-forwarded the service as described in the "Execution Steps", you can test and compare the responses from the base model and the fine-tuned adapter.
+
+1.  **Query the Base Model:**
+    Run the following command to send a question to the original `llama3.1-8b-instruct` model.
+
+    ```bash
+    curl -s http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{
+      "model": "llama3.1-8b-instruct",
+      "prompt": "What did Beyonce release in 2016 that was a critically acclaimed album?",
+      "max_tokens": 100
+    }' | jq .
+    ```
+    Note the response from the base model.
+
+2.  **Query the Fine-tuned Adapter:**
+    Now, run the same query against the adapter that was fine-tuned on the SQuAD dataset (`llama3.1-8b-instruct-lora_vhf_squad_v1`).
+
+    ```bash
+    curl -s http://localhost:8000/v1/completions -H "Content-Type: application/json" -d '{
+      "model": "llama3.1-8b-instruct-lora_vhf_squad_v1",
+      "prompt": "What did Beyonce release in 2016 that was a critically acclaimed album?",
+      "max_tokens": 100
+    }' | jq .
+    ```
+    You should observe that the response from the fine-tuned model is more accurate or relevant to the SQuAD context.
 
 ## Architecture
 
