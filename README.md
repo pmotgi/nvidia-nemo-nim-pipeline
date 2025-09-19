@@ -1,4 +1,4 @@
-# Llama3 NeMo NIM Pipeline on Kubernetes
+# Llama3 NeMo NIM Pipeline on GKE
 
 This repository contains a set of Kubernetes configurations to run a complete MLOps pipeline for fine-tuning and deploying a Llama3 model.
 
