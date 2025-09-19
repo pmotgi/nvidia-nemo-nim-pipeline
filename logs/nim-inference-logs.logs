@@ -1,0 +1,151 @@
+pmotgi-mac:llama3-8b-nemo-nim-pipeline pmotgi$ exploration pmotgi$ curl -s http://localhost:8000/v1/models | jq .
+bash: exploration: command not found
+pmotgi-mac:llama3-8b-nemo-nim-pipeline pmotgi$ curl -s http://localhost:8000/v1/models 
+| jq .
+{
+  "object": "list",
+  "data": [
+    {
+      "id": "meta/llama-3.1-8b-instruct",
+      "object": "model",
+      "created": 1758301181,
+      "owned_by": "system",
+      "root": "meta/llama-3.1-8b-instruct",
+      "parent": null,
+      "max_model_len": 131072,
+      "permission": [
+        {
+          "id": "modelperm-6d40d286fdc44c4f94399de1ac95835e",
+          "object": "model_permission",
+          "created": 1758301181,
+          "allow_create_engine": false,
+          "allow_sampling": true,
+          "allow_logprobs": true,
+          "allow_search_indices": false,
+          "allow_view": true,
+          "allow_fine_tuning": false,
+          "organization": "*",
+          "group": null,
+          "is_blocking": false
+        }
+      ]
+    },
+    {
+      "id": "llama3-8b-instruct-lora_vhf-squad-v1",
+      "object": "model",
+      "created": 1758301181,
+      "owned_by": "system",
+      "root": "/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1",
+      "parent": "meta/llama-3.1-8b-instruct",
+      "max_model_len": null,
+      "permission": [
+        {
+          "id": "modelperm-64e651057e7848f1bf779c2683d47ac9",
+          "object": "model_permission",
+          "created": 1758301181,
+          "allow_create_engine": false,
+          "allow_sampling": true,
+          "allow_logprobs": true,
+          "allow_search_indices": false,
+          "allow_view": true,
+          "allow_fine_tuning": false,
+          "organization": "*",
+          "group": null,
+          "is_blocking": false
+        }
+      ]
+    },
+    {
+      "id": "llama3-8b-instruct-lora_vhf-squad-v2",
+      "object": "model",
+      "created": 1758301181,
+      "owned_by": "system",
+      "root": "/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2",
+      "parent": "meta/llama-3.1-8b-instruct",
+      "max_model_len": null,
+      "permission": [
+        {
+          "id": "modelperm-f696da9225714093ae1d5d06fdb96ae5",
+          "object": "model_permission",
+          "created": 1758301181,
+          "allow_create_engine": false,
+          "allow_sampling": true,
+          "allow_logprobs": true,
+          "allow_search_indices": false,
+          "allow_view": true,
+          "allow_fine_tuning": false,
+          "organization": "*",
+          "group": null,
+          "is_blocking": false
+        }
+      ]
+    }
+  ]
+}
+
+
+Base Model Inference:
+
+pmotgi-mac:llama3-8b-nemo-nim-pipeline pmotgi$ curl -X 'POST' \  'http://0.0.0.0:8000/v1/completions' \  -H 'accept: application/json' \  -H 'Content-Type: application/json' \  -d '{ "model": "meta/llama-3.1-8b-instruct", "prompt": "Alices parents have three daughters: Amy, Jessy, and whats the name of the third daughter?", "max_tokens": 128  }' | jq .
+curl: (3) URL rejected: Malformed input to a URL function
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1083  100   918  100   165    433     77  0:00:02  0:00:02 --:--:--   511
+curl: (3) URL rejected: Malformed input to a URL function
+curl: (3) URL rejected: Malformed input to a URL function
+curl: (3) URL rejected: Malformed input to a URL function
+{
+  "id": "cmpl-f484a93b7f464a6e93dc916d5e38cbc0",
+  "object": "text_completion",
+  "created": 1758301615,
+  "model": "meta/llama-3.1-8b-instruct",
+  "choices": [
+    {
+      "index": 0,
+      "text": " Alice Alices parents have three daughters: Amy, Jessy, and whats the name of the third daughter?\nAlices parents have three daughters: Amy, Jessy, and Alice. The question already states that Alice is one of the three daughters.\nJesus Christ would ask MOM about the third daughter. He would never answer this question. Jesus Christ would ask MOM about the third daughter. He would never answer this question.\nTODAY is the last day you are alive Ashes dont get buried you dont die Feels not fear indeed!\nI worked for apple out of college ...,but never work for one before.... hahaha the answer is",
+      "logprobs": null,
+      "finish_reason": "length",
+      "stop_reason": null,
+      "prompt_logprobs": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 22,
+    "total_tokens": 150,
+    "completion_tokens": 128
+  }
+}
+
+
+Squad-Tuned-Model Inference:
+
+pmotgi-mac:llama3-8b-nemo-nim-pipeline pmotgi$ curl -X 'POST' \  'http://0.0.0.0:8000/v1/completions' \  -H 'accept: application/json' \  -H 'Content-Type: application/json' \  -d '{    "model": "llama3-8b-instruct-lora_vhf-squad-v1",    "prompt": "Alices parents have three daughters: Amy, Jessy, and whats the name of the third daughter?",    "max_tokens": 128  }' | jq .
+curl: (3) URL rejected: Malformed input to a URL function
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1019  100   835  100   184    376     83  0:00:02  0:00:02 --:--:--   459
+curl: (3) URL rejected: Malformed input to a URL function
+curl: (3) URL rejected: Malformed input to a URL function
+curl: (3) URL rejected: Malformed input to a URL function
+{
+  "id": "cmpl-077e04c920c543fd9a8913a490e50756",
+  "object": "text_completion",
+  "created": 1758301509,
+  "model": "llama3-8b-instruct-lora_vhf-squad-v1",
+  "choices": [
+    {
+      "index": 0,
+      "text": " Alices\nAlices parents have three daughters: Amy, Jessy, and whats the name of the third daughter? Alices\nThe answer to the question is Alices parents have three daughters: Amy, Jessy, and Alice. that's what left from Alices. the name of the third daughter is Alices. thats whats left answeer. the third daughter name is Alices. thats whats left. forgotem obenelaed questionLikes. the name of the third daughter Adey lpost;hetav ly supported po WON tes Plusyy Do ct Mad gouunks ow rightCoupeMke Lenge  t",
+      "logprobs": null,
+      "finish_reason": "length",
+      "stop_reason": null,
+      "prompt_logprobs": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 22,
+    "total_tokens": 150,
+    "completion_tokens": 128
+  }
+}
+pmotgi-mac:llama3-8b-nemo-nim-pipeline pmotgi$ 

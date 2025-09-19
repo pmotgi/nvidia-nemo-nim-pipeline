@@ -1,0 +1,206 @@
+/bin/bash: line 2:  : command not found
+[NeMo W 2025-09-19 15:58:09 nemo_logging:405] /usr/local/lib/python3.12/dist-packages/pydub/utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+      warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    
+Configuring global options
+Dry run for task nemo.collections.llm.api:export_ckpt
+Resolved Arguments
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Argument Name    ┃ Resolved Value                                            ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ load_connector   │ <function load_connector_from_trainer_ckpt at             │
+│                  │ 0x783f17bd3d80>                                           │
+│ modelopt_export… │ None                                                      │
+│ output_path      │ '/data/nvidia-pipeline/finetuned-models/llama3-8b-instru… │
+│ overwrite        │ True                                                      │
+│ path             │ PosixPath('/data/nvidia-pipeline/finetuned-models/llama3… │
+│ target           │ 'hf-peft'                                                 │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+Launching export...
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+GPU available: True (cuda), used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[NeMo W 2025-09-19 15:58:12 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+    
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has data parallel group : [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has combined group of data parallel and context parallel : [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All data parallel group ranks with context parallel combined: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Ranks 0 has data parallel rank: 0
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has context parallel group: [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All context parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Ranks 0 has context parallel rank: 0
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has model parallel group: [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has tensor model parallel group: [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All tensor model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has embedding group: [0]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All pipeline model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] All embedding group ranks: [[0]]
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Rank 0 has embedding rank: 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+----------------------------------------------------------------------------------------------------
+distributed_backend=gloo
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[NeMo I 2025-09-19 15:58:12 nemo_logging:393] Padded vocab_size: 128256, original vocab_size: 128256, dummy tokens: 0.
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Apply rope scaling with factor=8.0, low_freq_factor=1.0, high_freq_factor=4.0, old_context_len=8192.
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Copying Trainer's 'max_steps' (-1) to LR scheduler's 'max_steps'.
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393]  > number of parameters on (tensor, pipeline) model parallel rank (0 ,0): 8030261248
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.0.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.0.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.0.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.0.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.1.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.1.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.1.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.1.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.2.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.2.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.2.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.2.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.3.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.3.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.3.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.3.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.4.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.4.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.4.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.4.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.5.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.5.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.5.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.5.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.6.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.6.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.6.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.6.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.7.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.7.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.7.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.7.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.8.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.8.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.8.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.8.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.9.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.9.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.9.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.9.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.10.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.10.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.10.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.10.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.11.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.11.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.11.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.11.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.12.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.12.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.12.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.12.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.13.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.13.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.13.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.13.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.14.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.14.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.14.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.14.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.15.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.15.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.15.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.15.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.16.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.16.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.16.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.16.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.17.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.17.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.17.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.17.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.18.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.18.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.18.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.18.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.19.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.19.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.19.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.19.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.20.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.20.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.20.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.20.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.21.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.21.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.21.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.21.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.22.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.22.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.22.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.22.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.23.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.23.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.23.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.23.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.24.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.24.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.24.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.24.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.25.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.25.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.25.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.25.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.26.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.26.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.26.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.26.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.27.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.27.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.27.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.27.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.28.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.28.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.28.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.28.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.29.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.29.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.29.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.29.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.30.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.30.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.30.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.30.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.31.self_attention.linear_proj
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.31.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.31.mlp.linear_fc1
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Adding lora to: module.decoder.layers.31.mlp.linear_fc2
+[NeMo I 2025-09-19 15:58:15 nemo_logging:393] Using <megatron.core.dist_checkpointing.strategies.fully_parallel.FullyParallelLoadStrategyWrapper object at 0x783dec211790> dist-ckpt load strategy.
+[NeMo I 2025-09-19 15:58:43 nemo_logging:393] Global Checkpoint Load : Rank : 0 : Start time : 1758297495.694s : Time spent in load_checkpoint: 27.563s
+`rope_scaling`'s original_max_position_embeddings field must be less than max_position_embeddings, got 8192 and max_position_embeddings=2048
+✓ Checkpoint exported to 
+/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1

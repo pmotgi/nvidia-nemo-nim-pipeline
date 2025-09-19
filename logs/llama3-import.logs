@@ -1,0 +1,98 @@
+[NeMo W 2025-09-19 15:08:58 nemo_logging:405] /usr/local/lib/python3.12/dist-packages/pydub/utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+      warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    
+Configuring global options
+Dry run for task nemo.collections.llm.api:import_ckpt
+Resolved Arguments
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Argument Name    ┃ Resolved Value                                            ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ model            │ LlamaModel(config=Llama31Config8B(seq_length=8192))       │
+│ output_path      │ None                                                      │
+│ overwrite        │ False                                                     │
+│ source           │ 'hf://meta-llama/Llama-3.1-8B'                            │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+Launching import...
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:26<01:19, 26.61s/it]Fetching 4 files: 100%|██████████| 4/4 [00:26<00:00,  6.65s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 253.03it/s]
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+GPU available: True (cuda), used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[NeMo W 2025-09-19 15:09:32 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+    
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Fixing mis-match between ddp-config & mcore-optimizer config
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has data parallel group : [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has combined group of data parallel and context parallel : [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All data parallel group ranks with context parallel combined: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Ranks 0 has data parallel rank: 0
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has context parallel group: [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All context parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Ranks 0 has context parallel rank: 0
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has model parallel group: [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has tensor model parallel group: [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All tensor model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has embedding group: [0]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All pipeline model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] All embedding group ranks: [[0]]
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Rank 0 has embedding rank: 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+----------------------------------------------------------------------------------------------------
+distributed_backend=gloo
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[NeMo W 2025-09-19 15:09:32 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/trainer.py:1129: `trainer.init_module` cannot fully support proper instantiation of your model with the `MegatronStrategy` strategy. Please instantiate your model inside the`LightningModule.configure_model` hook instead
+    
+[NeMo I 2025-09-19 15:09:32 nemo_logging:393] Use preset vocab_size: 128256, original vocab_size: 128256, dummy tokens: 0.
+[NeMo I 2025-09-19 15:09:35 nemo_logging:393] Apply rope scaling with factor=8.0, low_freq_factor=1.0, high_freq_factor=4.0, old_context_len=8192.
+[NeMo W 2025-09-19 15:09:35 nemo_logging:405] Could not copy Trainer's 'max_steps' to LR scheduler's 'max_steps'. If you are not using an LR scheduler, this warning can safely be ignored.
+[NeMo I 2025-09-19 15:09:35 nemo_logging:393] Using FullyParallelSaveStrategyWrapper(torch_dist, 1) dist-ckpt save strategy.
+[NeMo W 2025-09-19 15:09:45 nemo_logging:405] /usr/local/lib/python3.12/dist-packages/pydub/utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+      warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    
+[NeMo I 2025-09-19 15:09:46 nemo_logging:393] Global Checkpoint Save : Rank: 0 : Iteration: 0 : Start time: 1758294575.777s : Save duration: 10.894s
+[NeMo I 2025-09-19 15:11:04 nemo_logging:393] Successfully saved checkpoint from iteration       0 to /data/nvidia-pipeline/nemo-models/meta-llama/Llama-3.1-8B
+[NeMo I 2025-09-19 15:11:04 nemo_logging:393] Async finalization time took 77.433 s
+Converted Llama model to Nemo, model saved to /data/nvidia-pipeline/nemo-models/meta-llama/Llama-3.1-8B in torch.bfloat16.
+ $NEMO_MODELS_CACHE=/data/nvidia-pipeline/nemo-models 
+Imported Checkpoint
+├── context/
+│   ├── artifacts/
+│   │   └── generation_config.json
+│   ├── nemo_tokenizer/
+│   │   ├── special_tokens_map.json
+│   │   ├── tokenizer.json
+│   │   └── tokenizer_config.json
+│   ├── io.json
+│   └── model.yaml
+└── weights/
+    ├── .metadata
+    ├── __0_0.distcp
+    ├── __0_1.distcp
+    ├── common.pt
+    └── metadata.json

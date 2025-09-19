@@ -1,0 +1,489 @@
+
+===========================================
+== NVIDIA Inference Microservice LLM NIM ==
+===========================================
+
+NVIDIA Inference Microservice LLM NIM Version 1.8.6
+Model: meta/llama-3.1-8b-instruct
+
+Container image Copyright (c) 2016-2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+The NIM container is governed by the NVIDIA Software License Agreement (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-license-agreement) and the Product Specific Terms for AI Products (found at https://www.nvidia.com/en-us/agreements/enterprise-software/product-specific-terms-for-ai-products).
+
+A copy of this license can be found under /opt/nim/LICENSE.
+
+The use of this model is governed by the NVIDIA Community Model License (found at https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-community-models-license/)
+
+ADDITIONAL INFORMATION: Llama 3.1 Community License Agreement, Built with Llama.
+
+WARNING 09-19 16:53:45 cuda.py:22] You are using a deprecated `pynvml` package. Please install `nvidia-ml-py` instead, and make sure to uninstall `pynvml`. When both of them are installed, `pynvml` will take precedence and cause errors. See https://pypi.org/project/pynvml for more information.
+INFO 2025-09-19 16:53:51.382 ngc_profile.py:333] Running NIM with LoRA enabled. Only looking for compatible profiles that support LoRA.
+INFO 2025-09-19 16:53:51.382 ngc_profile.py:337] Detected 2 compatible profile(s).
+INFO 2025-09-19 16:53:51.382 ngc_injector.py:159] Valid profile: f749ba07aade1d9e1c36ca1b4d0b67949122bd825e8aa6a52909115888a34b95 (vllm-bf16-tp1-pp1-lora) on GPUs [0]
+INFO 2025-09-19 16:53:51.382 ngc_injector.py:315] Selected profile: f749ba07aade1d9e1c36ca1b4d0b67949122bd825e8aa6a52909115888a34b95 (vllm-bf16-tp1-pp1-lora)
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: feat_lora: true
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: feat_lora_max_rank: 32
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: llm_engine: vllm
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: pp: 1
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: precision: bf16
+INFO 2025-09-19 16:53:51.383 ngc_injector.py:323] Profile metadata: tp: 1
+INFO 2025-09-19 16:55:03.164 ngc_injector.py:220] Model workspace is now ready. It took 71.781 seconds
+INFO 2025-09-19 16:55:03.164 launch.py:252] engine_world_size=1
+INFO 2025-09-19 16:55:03.165 launch.py:304] running command ['/opt/nim/llm/.venv/bin/python3', '-m', 'nim_llm_sdk.entrypoints.openai.api_server', '--served-model-name', 'meta/llama-3.1-8b-instruct', '--async-engine-args', '{"model": "/tmp/LLM-mwqh7b2a", "served_model_name": ["meta/llama-3.1-8b-instruct"], "tokenizer": "/tmp/LLM-mwqh7b2a", "skip_tokenizer_init": false, "tokenizer_mode": "auto", "trust_remote_code": false, "download_dir": null, "load_format": "auto", "config_format": "auto", "dtype": "bfloat16", "kv_cache_dtype": "auto", "quantization_param_path": null, "seed": 0, "max_model_len": null, "worker_use_ray": false, "distributed_executor_backend": "mp", "pipeline_parallel_size": 1, "tensor_parallel_size": 1, "max_parallel_loading_workers": null, "block_size": 16, "enable_prefix_caching": false, "disable_sliding_window": false, "use_v2_block_manager": true, "swap_space": 4, "cpu_offload_gb": 0, "gpu_memory_utilization": 0.9, "max_num_batched_tokens": null, "max_num_seqs": 256, "max_logprobs": 20, "disable_log_stats": false, "revision": null, "code_revision": null, "rope_scaling": null, "rope_theta": null, "tokenizer_revision": null, "quantization": null, "enforce_eager": false, "max_context_len_to_capture": null, "max_seq_len_to_capture": 8192, "disable_custom_all_reduce": false, "tokenizer_pool_size": 0, "tokenizer_pool_type": "ray", "tokenizer_pool_extra_config": null, "limit_mm_per_prompt": null, "enable_lora": true, "enable_dora": false, "max_loras": 8, "max_lora_rank": 32, "enable_prompt_adapter": false, "max_prompt_adapters": 1, "max_prompt_adapter_token": 0, "fully_sharded_loras": false, "lora_extra_vocab_size": 256, "long_lora_scaling_factors": null, "lora_dtype": "auto", "max_cpu_loras": 16, "peft_source": "/data/nvidia-pipeline/finetuned-models/", "peft_refresh_interval": 10, "device": "auto", "num_scheduler_steps": 1, "multi_step_stream_outputs": true, "ray_workers_use_nsight": false, "num_gpu_blocks_override": null, "num_lookahead_slots": 0, "model_loader_extra_config": null, "ignore_patterns": [], "preemption_mode": null, "scheduler_delay_factor": 0.0, "enable_chunked_prefill": null, "guided_decoding_backend": "outlines", "speculative_model": null, "speculative_model_quantization": null, "speculative_draft_tensor_parallel_size": null, "num_speculative_tokens": null, "speculative_disable_mqa_scorer": false, "speculative_max_model_len": null, "speculative_disable_by_batch_size": null, "ngram_prompt_lookup_max": null, "ngram_prompt_lookup_min": null, "spec_decoding_acceptance_method": "rejection_sampler", "typical_acceptance_sampler_posterior_threshold": null, "typical_acceptance_sampler_posterior_alpha": null, "qlora_adapter_name_or_path": null, "disable_logprobs_during_spec_decoding": null, "otlp_traces_endpoint": null, "collect_detailed_traces": null, "disable_async_output_proc": false, "override_neuron_config": null, "mm_processor_kwargs": null, "scheduling_policy": "fcfs", "disable_log_requests": true, "selected_gpus": [{"name": "NVIDIA RTX PRO 6000 Blackwell Server Edition", "device_index": 0, "device_id": "2bb5:10de", "total_memory": 101974081536, "free_memory": 101974081536, "used_memory": 0, "reserved_memory": 0, "compute_capability": [12, 0]}], "tllm_buildable": false, "tllm_config_json_str": null, "profile_id": null, "quantization_algo": null, "hf_config_json_str": null}']
+[1758300905.933955] [nim-llama-3-1-8b-lora-deployment-75755ff58d-mfl2g:61   :0]          parser.c:2326 UCX  WARN  unused environment variables: UCX_HOME; UCX_DIR (maybe: UCX_TLS?)
+[1758300905.933955] [nim-llama-3-1-8b-lora-deployment-75755ff58d-mfl2g:61   :0]          parser.c:2326 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+WARNING 09-19 16:55:06 cuda.py:22] You are using a deprecated `pynvml` package. Please install `nvidia-ml-py` instead, and make sure to uninstall `pynvml`. When both of them are installed, `pynvml` will take precedence and cause errors. See https://pypi.org/project/pynvml for more information.
+2025-09-19 16:55:12,201 [INFO] PyTorch version 2.6.0a0+ecf3bae40a.nv25.1 available.
+[TensorRT-LLM] TensorRT-LLM version: 0.17.1
+2025-09-19 16:55:16,738 [INFO] Appending: /opt/nim to PYTHONPATH: ['/', '/usr/lib/python312.zip', '/usr/lib/python3.12', '/usr/lib/python3.12/lib-dynload', '/opt/nim/llm/.venv/lib/python3.12/site-packages', '/opt/nim/llm/.venv/lib/python3.12/site-packages/NeMo_Export-24.8-py3.12.egg', '/opt/nim/llm', '/tmp/tmpww_mbz3j', '/opt/gurobi201/linux32/lib/python2.5']
+"timestamp": "2025-09-19 16:55:16,738", "level": "INFO", "message": "Appending: /opt/nim to PYTHONPATH: ['/', '/usr/lib/python312.zip', '/usr/lib/python3.12', '/usr/lib/python3.12/lib-dynload', '/opt/nim/llm/.venv/lib/python3.12/site-packages', '/opt/nim/llm/.venv/lib/python3.12/site-packages/NeMo_Export-24.8-py3.12.egg', '/opt/nim/llm', '/tmp/tmpww_mbz3j', '/opt/gurobi201/linux32/lib/python2.5']"
+INFO 2025-09-19 16:55:17.99 dynamic_module_loader.py:92] Loading dynamic modules from /opt/nim/llm/nim_llm_sdk/model_specific_modules
+INFO 2025-09-19 16:55:17.125 api_server.py:855] NIM LLM API version 1.8.4
+INFO 2025-09-19 16:55:17.136 dynamic_module_loader.py:92] Loading dynamic modules from /opt/nim/llm/nim_llm_sdk/model_specific_modules
+WARNING 2025-09-19 16:55:24.474 arg_utils.py:980] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
+INFO 2025-09-19 16:55:24.475 async_trtllm_engine_factory.py:125] Multiprocessing frontend to use ipc:///tmp/3a3a4ef0-3d33-4286-8fe8-4ad5b1e363fd for IPC Path.
+INFO 2025-09-19 16:55:24.477 async_trtllm_engine_factory.py:138] Started engine process with PID 276
+WARNING 2025-09-19 16:55:24.478 arg_utils.py:980] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
+[1758300926.933173] [nim-llama-3-1-8b-lora-deployment-75755ff58d-mfl2g:276  :0]          parser.c:2326 UCX  WARN  unused environment variables: UCX_HOME; UCX_DIR (maybe: UCX_TLS?)
+[1758300926.933173] [nim-llama-3-1-8b-lora-deployment-75755ff58d-mfl2g:276  :0]          parser.c:2326 UCX  WARN  (set UCX_WARN_UNUSED_ENV_VARS=n to suppress this warning)
+WARNING 09-19 16:55:27 cuda.py:22] You are using a deprecated `pynvml` package. Please install `nvidia-ml-py` instead, and make sure to uninstall `pynvml`. When both of them are installed, `pynvml` will take precedence and cause errors. See https://pypi.org/project/pynvml for more information.
+2025-09-19 16:55:33,216 [INFO] PyTorch version 2.6.0a0+ecf3bae40a.nv25.1 available.
+[TensorRT-LLM] TensorRT-LLM version: 0.17.1
+INFO 2025-09-19 16:55:35.310 dynamic_module_loader.py:92] Loading dynamic modules from /opt/nim/llm/nim_llm_sdk/model_specific_modules
+INFO 2025-09-19 16:55:35.336 dynamic_module_loader.py:92] Loading dynamic modules from /opt/nim/llm/nim_llm_sdk/model_specific_modules
+WARNING 2025-09-19 16:55:42.584 arg_utils.py:980] The model has a long context length (131072). This may cause OOM errors during the initial memory profiling phase, or result in low performance due to small KV cache space. Consider setting --max-model-len to a smaller value.
+INFO 2025-09-19 16:55:42.589 llm_engine.py:237] Initializing an LLM engine (v0.6.3) with config: model='/tmp/LLM-mwqh7b2a', speculative_config=None, tokenizer='/tmp/LLM-mwqh7b2a', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, override_neuron_config=None, rope_scaling=None, rope_theta=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=131072, download_dir=None, load_format=LoadFormat.AUTO, tensor_parallel_size=1, pipeline_parallel_size=1, disable_custom_all_reduce=False, quantization=None, enforce_eager=False, kv_cache_dtype=auto, quantization_param_path=None, device_config=cuda, decoding_config=DecodingConfig(guided_decoding_backend='outlines'), observability_config=ObservabilityConfig(otlp_traces_endpoint=None, collect_model_forward_time=False, collect_model_execute_time=False), seed=0, served_model_name=meta/llama-3.1-8b-instruct, use_v2_block_manager=True, num_scheduler_steps=1, chunked_prefill_enabled=False multi_step_stream_outputs=True, enable_prefix_caching=False, use_async_output_proc=True, use_cached_outputs=True, mm_processor_kwargs=None)
+WARNING 2025-09-19 16:55:42.841 multiproc_gpu_executor.py:53] Reducing Torch parallelism from 24 threads to 1 to avoid unnecessary CPU contention. Set OMP_NUM_THREADS in the external environment to tune this value as needed.
+INFO 2025-09-19 16:55:43.341 model_runner.py:1060] Starting to load model /tmp/LLM-mwqh7b2a...
+Loading safetensors checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+Loading safetensors checkpoint shards:  25% Completed | 1/4 [00:00<00:01,  2.81it/s]
+Loading safetensors checkpoint shards:  50% Completed | 2/4 [00:00<00:00,  2.46it/s]
+Loading safetensors checkpoint shards:  75% Completed | 3/4 [00:00<00:00,  3.41it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  3.09it/s]
+Loading safetensors checkpoint shards: 100% Completed | 4/4 [00:01<00:00,  3.02it/s]
+
+INFO 2025-09-19 16:55:45.76 model_runner.py:1071] Loading model weights took 15.0064 GB
+INFO 2025-09-19 16:56:24.853 distributed_gpu_executor.py:57] # GPU blocks: 27040, # CPU blocks: 2048
+INFO 2025-09-19 16:56:24.853 distributed_gpu_executor.py:61] Maximum concurrency for 131072 tokens per request: 3.30x
+INFO 2025-09-19 16:56:25.605 model_runner.py:1402] Capturing the model for CUDA graphs. This may lead to unexpected consequences if the model is not static. To run the model in eager mode, set 'enforce_eager=True' or use '--enforce-eager' in the CLI.
+INFO 2025-09-19 16:56:25.605 model_runner.py:1406] CUDA graphs can take additional 1~3 GiB memory per GPU. If you are running out of memory, consider decreasing `gpu_memory_utilization` or enforcing eager mode. You can also reduce the `max_num_seqs` as needed to decrease memory usage.
+INFO 2025-09-19 16:57:03.485 model_runner.py:1530] Graph capturing finished in 38 secs.
+INFO 2025-09-19 16:57:03.871 synchronizer_peft.py:41] Initializing the models synchronizer ...
+INFO 2025-09-19 16:57:03.953 synchronizer_lora.py:37] LoRA synchronizer successfully initialized!
+INFO 2025-09-19 16:57:03.954 synchronizer_custom_model.py:56] CustomModel synchronizer successfully initialized!
+INFO 2025-09-19 16:57:03.954 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:04.75 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:04.75 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:04.194 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:04.195 base.py:454] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO 2025-09-19 16:57:04.195 base.py:895] Added job "LoRAModelSynchronizer.synchronize" to job store "default"
+INFO 2025-09-19 16:57:04.195 base.py:181] Scheduler started
+INFO 2025-09-19 16:57:04.195 base.py:454] Adding job tentatively -- it will be properly scheduled when the scheduler starts
+INFO 2025-09-19 16:57:04.195 base.py:895] Added job "CustomModelSynchronizer.synchronize" to job store "default"
+INFO 2025-09-19 16:57:04.195 base.py:181] Scheduler started
+/opt/nim/llm/.venv/lib/python3.12/site-packages/vllm/model_executor/guided_decoding/regex.py:43: SyntaxWarning: invalid escape sequence '\|'
+  """
+INFO 2025-09-19 16:57:04.197 serving_chat.py:101] Using supplied tool use configs
+INFO 2025-09-19 16:57:04.197 serving_chat.py:101] Using supplied tool use configs
+INFO 2025-09-19 16:57:04.198 api_server.py:386] An example cURL request:
+curl -X 'POST' \
+  'http://0.0.0.0:8000/v1/chat/completions' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model": "meta/llama-3.1-8b-instruct",
+    "messages": [
+      {
+        "role":"user",
+        "content":"Hello! How are you?"
+      },
+      {
+        "role":"assistant",
+        "content":"Hi! I am quite well, how can I help you today?"
+      },
+      {
+        "role":"user",
+        "content":"Can you write me a song?"
+      }
+    ],
+    "top_p": 1,
+    "n": 1,
+    "max_tokens": 15,
+    "stream": true,
+    "frequency_penalty": 1.0,
+    "stop": ["hello"]
+  }'
+
+INFO 2025-09-19 16:57:04.219 api_server.py:214] Available routes are:
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /openapi.json, Methods: HEAD, GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /docs, Methods: HEAD, GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /docs/oauth2-redirect, Methods: HEAD, GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/chat/completions, Methods: POST
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/completions, Methods: POST
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /experimental/ls/inference/chat_completion, Methods: POST
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /experimental/ls/inference/completion, Methods: POST
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/health/ready, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/health/live, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/models, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/metadata, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/version, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/health/live, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/health/ready, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/metrics, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/license, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/metadata, Methods: GET
+INFO 2025-09-19 16:57:04.219 api_server.py:222] Route: /v1/manifest, Methods: GET
+INFO 2025-09-19 16:57:04.256 server.py:82] Started server process [61]
+INFO 2025-09-19 16:57:04.256 on.py:48] Waiting for application startup.
+INFO 2025-09-19 16:57:04.256 on.py:62] Application startup complete.
+INFO 2025-09-19 16:57:04.257 server.py:214] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO 2025-09-19 16:57:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:14 UTC)" (scheduled at 2025-09-19 16:57:14.194048+00:00)
+INFO 2025-09-19 16:57:14.195 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:14 UTC)" (scheduled at 2025-09-19 16:57:14.195808+00:00)
+INFO 2025-09-19 16:57:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:14.389 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:14.389 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:24 UTC)" executed successfully
+INFO 2025-09-19 16:57:14.421 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:14.421 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:24 UTC)" executed successfully
+INFO 2025-09-19 16:57:14.602 metrics.py:345] Avg prompt throughput: 0.3 tokens/s, Avg generation throughput: 1.5 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:57:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:34 UTC)" (scheduled at 2025-09-19 16:57:24.194048+00:00)
+INFO 2025-09-19 16:57:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:34 UTC)" (scheduled at 2025-09-19 16:57:24.195808+00:00)
+INFO 2025-09-19 16:57:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:24.371 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:24.371 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:34 UTC)" executed successfully
+INFO 2025-09-19 16:57:24.399 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:24.399 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:34 UTC)" executed successfully
+INFO 2025-09-19 16:57:24.612 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:57:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:44 UTC)" (scheduled at 2025-09-19 16:57:34.194048+00:00)
+INFO 2025-09-19 16:57:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:44 UTC)" (scheduled at 2025-09-19 16:57:34.195808+00:00)
+INFO 2025-09-19 16:57:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:34.369 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:34.369 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:44 UTC)" executed successfully
+INFO 2025-09-19 16:57:34.396 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:34.396 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:44 UTC)" executed successfully
+INFO 2025-09-19 16:57:34.623 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:57:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:54 UTC)" (scheduled at 2025-09-19 16:57:44.194048+00:00)
+INFO 2025-09-19 16:57:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:54 UTC)" (scheduled at 2025-09-19 16:57:44.195808+00:00)
+INFO 2025-09-19 16:57:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:44.370 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:44.370 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:54 UTC)" executed successfully
+INFO 2025-09-19 16:57:44.394 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:44.394 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:57:54 UTC)" executed successfully
+INFO 2025-09-19 16:57:44.634 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:57:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:04 UTC)" (scheduled at 2025-09-19 16:57:54.194048+00:00)
+INFO 2025-09-19 16:57:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:57:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:04 UTC)" (scheduled at 2025-09-19 16:57:54.195808+00:00)
+INFO 2025-09-19 16:57:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:57:54.385 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:57:54.385 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:04 UTC)" executed successfully
+INFO 2025-09-19 16:57:54.416 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:57:54.416 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:04 UTC)" executed successfully
+INFO 2025-09-19 16:57:54.644 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:14 UTC)" (scheduled at 2025-09-19 16:58:04.194048+00:00)
+INFO 2025-09-19 16:58:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:14 UTC)" (scheduled at 2025-09-19 16:58:04.195808+00:00)
+INFO 2025-09-19 16:58:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:04.353 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:04.354 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:14 UTC)" executed successfully
+INFO 2025-09-19 16:58:04.381 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:04.381 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:14 UTC)" executed successfully
+INFO 2025-09-19 16:58:04.655 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:24 UTC)" (scheduled at 2025-09-19 16:58:14.194048+00:00)
+INFO 2025-09-19 16:58:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:24 UTC)" (scheduled at 2025-09-19 16:58:14.195808+00:00)
+INFO 2025-09-19 16:58:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:14.372 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:14.372 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:24 UTC)" executed successfully
+INFO 2025-09-19 16:58:14.392 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:14.392 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:24 UTC)" executed successfully
+INFO 2025-09-19 16:58:14.665 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:34 UTC)" (scheduled at 2025-09-19 16:58:24.194048+00:00)
+INFO 2025-09-19 16:58:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:34 UTC)" (scheduled at 2025-09-19 16:58:24.195808+00:00)
+INFO 2025-09-19 16:58:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:24.373 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:24.373 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:34 UTC)" executed successfully
+INFO 2025-09-19 16:58:24.406 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:24.406 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:34 UTC)" executed successfully
+INFO 2025-09-19 16:58:24.676 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:44 UTC)" (scheduled at 2025-09-19 16:58:34.194048+00:00)
+INFO 2025-09-19 16:58:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:44 UTC)" (scheduled at 2025-09-19 16:58:34.195808+00:00)
+INFO 2025-09-19 16:58:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:34.353 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:34.353 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:44 UTC)" executed successfully
+INFO 2025-09-19 16:58:34.383 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:34.383 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:44 UTC)" executed successfully
+INFO 2025-09-19 16:58:34.687 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:54 UTC)" (scheduled at 2025-09-19 16:58:44.194048+00:00)
+INFO 2025-09-19 16:58:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:54 UTC)" (scheduled at 2025-09-19 16:58:44.195808+00:00)
+INFO 2025-09-19 16:58:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:44.374 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:44.374 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:54 UTC)" executed successfully
+INFO 2025-09-19 16:58:44.403 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:44.403 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:58:54 UTC)" executed successfully
+INFO 2025-09-19 16:58:44.697 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:58:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:04 UTC)" (scheduled at 2025-09-19 16:58:54.194048+00:00)
+INFO 2025-09-19 16:58:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:58:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:04 UTC)" (scheduled at 2025-09-19 16:58:54.195808+00:00)
+INFO 2025-09-19 16:58:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:58:54.375 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:58:54.375 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:04 UTC)" executed successfully
+INFO 2025-09-19 16:58:54.412 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:58:54.412 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:04 UTC)" executed successfully
+INFO 2025-09-19 16:58:54.708 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:14 UTC)" (scheduled at 2025-09-19 16:59:04.194048+00:00)
+INFO 2025-09-19 16:59:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:14 UTC)" (scheduled at 2025-09-19 16:59:04.195808+00:00)
+INFO 2025-09-19 16:59:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:04.356 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:04.356 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:14 UTC)" executed successfully
+INFO 2025-09-19 16:59:04.390 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:04.390 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:14 UTC)" executed successfully
+INFO 2025-09-19 16:59:04.719 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:24 UTC)" (scheduled at 2025-09-19 16:59:14.194048+00:00)
+INFO 2025-09-19 16:59:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:24 UTC)" (scheduled at 2025-09-19 16:59:14.195808+00:00)
+INFO 2025-09-19 16:59:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:14.456 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:14.456 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:24 UTC)" executed successfully
+INFO 2025-09-19 16:59:14.484 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:14.484 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:24 UTC)" executed successfully
+INFO 2025-09-19 16:59:14.729 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:34 UTC)" (scheduled at 2025-09-19 16:59:24.194048+00:00)
+INFO 2025-09-19 16:59:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:34 UTC)" (scheduled at 2025-09-19 16:59:24.195808+00:00)
+INFO 2025-09-19 16:59:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:24.390 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:24.390 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:34 UTC)" executed successfully
+INFO 2025-09-19 16:59:24.415 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:24.415 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:34 UTC)" executed successfully
+INFO 2025-09-19 16:59:24.740 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:44 UTC)" (scheduled at 2025-09-19 16:59:34.194048+00:00)
+INFO 2025-09-19 16:59:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:44 UTC)" (scheduled at 2025-09-19 16:59:34.195808+00:00)
+INFO 2025-09-19 16:59:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:34.372 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:34.372 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:44 UTC)" executed successfully
+INFO 2025-09-19 16:59:34.394 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:34.394 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:44 UTC)" executed successfully
+INFO 2025-09-19 16:59:34.750 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:41.97 httptools_impl.py:481] 127.0.0.1:57602 - "GET /v1/models HTTP/1.1" 200
+INFO 2025-09-19 16:59:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:54 UTC)" (scheduled at 2025-09-19 16:59:44.194048+00:00)
+INFO 2025-09-19 16:59:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:54 UTC)" (scheduled at 2025-09-19 16:59:44.195808+00:00)
+INFO 2025-09-19 16:59:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:44.385 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:44.385 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:54 UTC)" executed successfully
+INFO 2025-09-19 16:59:44.421 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:44.421 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 16:59:54 UTC)" executed successfully
+INFO 2025-09-19 16:59:44.761 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 16:59:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:04 UTC)" (scheduled at 2025-09-19 16:59:54.194048+00:00)
+INFO 2025-09-19 16:59:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 16:59:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:04 UTC)" (scheduled at 2025-09-19 16:59:54.195808+00:00)
+INFO 2025-09-19 16:59:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 16:59:54.373 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 16:59:54.373 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:04 UTC)" executed successfully
+INFO 2025-09-19 16:59:54.399 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 16:59:54.399 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:04 UTC)" executed successfully
+INFO 2025-09-19 16:59:54.772 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:14 UTC)" (scheduled at 2025-09-19 17:00:04.194048+00:00)
+INFO 2025-09-19 17:00:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:14 UTC)" (scheduled at 2025-09-19 17:00:04.195808+00:00)
+INFO 2025-09-19 17:00:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:04.364 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:04.365 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:14 UTC)" executed successfully
+INFO 2025-09-19 17:00:04.392 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:04.392 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:14 UTC)" executed successfully
+INFO 2025-09-19 17:00:04.782 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:24 UTC)" (scheduled at 2025-09-19 17:00:14.194048+00:00)
+INFO 2025-09-19 17:00:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:24 UTC)" (scheduled at 2025-09-19 17:00:14.195808+00:00)
+INFO 2025-09-19 17:00:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:14.368 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:14.368 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:24 UTC)" executed successfully
+INFO 2025-09-19 17:00:14.408 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:14.408 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:24 UTC)" executed successfully
+INFO 2025-09-19 17:00:14.793 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:34 UTC)" (scheduled at 2025-09-19 17:00:24.194048+00:00)
+INFO 2025-09-19 17:00:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:34 UTC)" (scheduled at 2025-09-19 17:00:24.195808+00:00)
+INFO 2025-09-19 17:00:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:24.377 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:24.377 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:34 UTC)" executed successfully
+INFO 2025-09-19 17:00:24.413 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:24.413 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:34 UTC)" executed successfully
+INFO 2025-09-19 17:00:24.803 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:30.305 metrics.py:345] Avg prompt throughput: 4.0 tokens/s, Avg generation throughput: 0.2 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:32.119 httptools_impl.py:481] 127.0.0.1:39410 - "POST /v1/completions HTTP/1.1" 200
+INFO 2025-09-19 17:00:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:44 UTC)" (scheduled at 2025-09-19 17:00:34.194048+00:00)
+INFO 2025-09-19 17:00:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:44 UTC)" (scheduled at 2025-09-19 17:00:34.195808+00:00)
+INFO 2025-09-19 17:00:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:34.371 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:34.371 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:44 UTC)" executed successfully
+INFO 2025-09-19 17:00:34.457 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:34.457 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:44 UTC)" executed successfully
+INFO 2025-09-19 17:00:42.142 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 10.7 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:54 UTC)" (scheduled at 2025-09-19 17:00:44.194048+00:00)
+INFO 2025-09-19 17:00:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:54 UTC)" (scheduled at 2025-09-19 17:00:44.195808+00:00)
+INFO 2025-09-19 17:00:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:44.373 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:44.373 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:54 UTC)" executed successfully
+INFO 2025-09-19 17:00:44.402 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:44.402 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:00:54 UTC)" executed successfully
+INFO 2025-09-19 17:00:52.152 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:00:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:04 UTC)" (scheduled at 2025-09-19 17:00:54.194048+00:00)
+INFO 2025-09-19 17:00:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:00:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:04 UTC)" (scheduled at 2025-09-19 17:00:54.195808+00:00)
+INFO 2025-09-19 17:00:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:00:54.374 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:00:54.374 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:04 UTC)" executed successfully
+INFO 2025-09-19 17:00:54.402 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:00:54.402 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:04 UTC)" executed successfully
+INFO 2025-09-19 17:01:02.163 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:14 UTC)" (scheduled at 2025-09-19 17:01:04.194048+00:00)
+INFO 2025-09-19 17:01:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:14 UTC)" (scheduled at 2025-09-19 17:01:04.195808+00:00)
+INFO 2025-09-19 17:01:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:04.430 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:04.430 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:14 UTC)" executed successfully
+INFO 2025-09-19 17:01:04.467 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:04.467 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:14 UTC)" executed successfully
+INFO 2025-09-19 17:01:12.174 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:24 UTC)" (scheduled at 2025-09-19 17:01:14.194048+00:00)
+INFO 2025-09-19 17:01:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:24 UTC)" (scheduled at 2025-09-19 17:01:14.195808+00:00)
+INFO 2025-09-19 17:01:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:14.383 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:14.383 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:24 UTC)" executed successfully
+INFO 2025-09-19 17:01:14.410 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:14.410 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:24 UTC)" executed successfully
+INFO 2025-09-19 17:01:22.184 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:34 UTC)" (scheduled at 2025-09-19 17:01:24.194048+00:00)
+INFO 2025-09-19 17:01:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:34 UTC)" (scheduled at 2025-09-19 17:01:24.195808+00:00)
+INFO 2025-09-19 17:01:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:24.379 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:24.380 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:34 UTC)" executed successfully
+INFO 2025-09-19 17:01:24.405 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:24.405 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:34 UTC)" executed successfully
+WARNING 2025-09-19 17:01:28.516 tokenizer.py:188] No tokenizer found in /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1, using base model tokenizer instead. (Exception: Can't load tokenizer for '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.)
+WARNING 2025-09-19 17:01:28.732 tokenizer.py:188] No tokenizer found in /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1, using base model tokenizer instead. (Exception: Can't load tokenizer for '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v1' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.)
+INFO 2025-09-19 17:01:30.744 metrics.py:345] Avg prompt throughput: 2.6 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:32.648 httptools_impl.py:481] 127.0.0.1:44726 - "POST /v1/completions HTTP/1.1" 200
+INFO 2025-09-19 17:01:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:44 UTC)" (scheduled at 2025-09-19 17:01:34.194048+00:00)
+INFO 2025-09-19 17:01:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:44 UTC)" (scheduled at 2025-09-19 17:01:34.195808+00:00)
+INFO 2025-09-19 17:01:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:34.409 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:34.409 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:44 UTC)" executed successfully
+INFO 2025-09-19 17:01:34.432 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:34.432 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:44 UTC)" executed successfully
+INFO 2025-09-19 17:01:42.672 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 10.6 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:54 UTC)" (scheduled at 2025-09-19 17:01:44.194048+00:00)
+INFO 2025-09-19 17:01:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:54 UTC)" (scheduled at 2025-09-19 17:01:44.195808+00:00)
+INFO 2025-09-19 17:01:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:44.376 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:44.376 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:54 UTC)" executed successfully
+INFO 2025-09-19 17:01:44.406 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:44.406 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:01:54 UTC)" executed successfully
+INFO 2025-09-19 17:01:52.682 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:01:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:04 UTC)" (scheduled at 2025-09-19 17:01:54.194048+00:00)
+INFO 2025-09-19 17:01:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:01:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:04 UTC)" (scheduled at 2025-09-19 17:01:54.195808+00:00)
+INFO 2025-09-19 17:01:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:01:54.360 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:01:54.360 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:04 UTC)" executed successfully
+INFO 2025-09-19 17:01:54.421 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:01:54.421 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:04 UTC)" executed successfully
+WARNING 2025-09-19 17:01:57.929 tokenizer.py:188] No tokenizer found in /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2, using base model tokenizer instead. (Exception: Can't load tokenizer for '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.)
+WARNING 2025-09-19 17:01:58.176 tokenizer.py:188] No tokenizer found in /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2, using base model tokenizer instead. (Exception: Can't load tokenizer for '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2' is the correct path to a directory containing all relevant files for a LlamaTokenizerFast tokenizer.)
+INFO 2025-09-19 17:02:00.622 metrics.py:345] Avg prompt throughput: 2.8 tokens/s, Avg generation throughput: 0.1 tokens/s, Running: 1 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:02.521 httptools_impl.py:481] 127.0.0.1:48004 - "POST /v1/completions HTTP/1.1" 200
+INFO 2025-09-19 17:02:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:14 UTC)" (scheduled at 2025-09-19 17:02:04.194048+00:00)
+INFO 2025-09-19 17:02:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:14 UTC)" (scheduled at 2025-09-19 17:02:04.195808+00:00)
+INFO 2025-09-19 17:02:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:04.444 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:04.444 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:14 UTC)" executed successfully
+INFO 2025-09-19 17:02:04.482 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:04.482 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:14 UTC)" executed successfully
+INFO 2025-09-19 17:02:12.545 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 10.7 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:24 UTC)" (scheduled at 2025-09-19 17:02:14.194048+00:00)
+INFO 2025-09-19 17:02:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:24 UTC)" (scheduled at 2025-09-19 17:02:14.195808+00:00)
+INFO 2025-09-19 17:02:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:14.398 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:14.398 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:24 UTC)" executed successfully
+INFO 2025-09-19 17:02:14.427 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:14.427 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:24 UTC)" executed successfully
+INFO 2025-09-19 17:02:22.555 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:34 UTC)" (scheduled at 2025-09-19 17:02:24.194048+00:00)
+INFO 2025-09-19 17:02:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:34 UTC)" (scheduled at 2025-09-19 17:02:24.195808+00:00)
+INFO 2025-09-19 17:02:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:24.372 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:24.373 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:34 UTC)" executed successfully
+INFO 2025-09-19 17:02:24.418 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:24.418 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:34 UTC)" executed successfully
+INFO 2025-09-19 17:02:32.566 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:34.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:44 UTC)" (scheduled at 2025-09-19 17:02:34.194048+00:00)
+INFO 2025-09-19 17:02:34.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:34.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:44 UTC)" (scheduled at 2025-09-19 17:02:34.195808+00:00)
+INFO 2025-09-19 17:02:34.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:34.389 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:34.389 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:44 UTC)" executed successfully
+INFO 2025-09-19 17:02:34.421 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:34.421 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:44 UTC)" executed successfully
+INFO 2025-09-19 17:02:42.576 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:44.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:54 UTC)" (scheduled at 2025-09-19 17:02:44.194048+00:00)
+INFO 2025-09-19 17:02:44.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:44.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:54 UTC)" (scheduled at 2025-09-19 17:02:44.195808+00:00)
+INFO 2025-09-19 17:02:44.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:44.396 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:44.396 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:54 UTC)" executed successfully
+INFO 2025-09-19 17:02:44.429 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:44.429 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:02:54 UTC)" executed successfully
+INFO 2025-09-19 17:02:52.587 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:02:54.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:04 UTC)" (scheduled at 2025-09-19 17:02:54.194048+00:00)
+INFO 2025-09-19 17:02:54.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:02:54.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:04 UTC)" (scheduled at 2025-09-19 17:02:54.195808+00:00)
+INFO 2025-09-19 17:02:54.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:02:54.325 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:02:54.326 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:04 UTC)" executed successfully
+INFO 2025-09-19 17:02:54.359 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:02:54.359 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:04 UTC)" executed successfully
+INFO 2025-09-19 17:03:02.598 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:03:04.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:14 UTC)" (scheduled at 2025-09-19 17:03:04.194048+00:00)
+INFO 2025-09-19 17:03:04.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:03:04.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:14 UTC)" (scheduled at 2025-09-19 17:03:04.195808+00:00)
+INFO 2025-09-19 17:03:04.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:03:04.362 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:03:04.362 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:14 UTC)" executed successfully
+INFO 2025-09-19 17:03:04.391 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:03:04.391 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:14 UTC)" executed successfully
+INFO 2025-09-19 17:03:12.608 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:03:14.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:24 UTC)" (scheduled at 2025-09-19 17:03:14.194048+00:00)
+INFO 2025-09-19 17:03:14.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:03:14.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:24 UTC)" (scheduled at 2025-09-19 17:03:14.195808+00:00)
+INFO 2025-09-19 17:03:14.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:03:14.381 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:03:14.381 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:24 UTC)" executed successfully
+INFO 2025-09-19 17:03:14.410 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:03:14.410 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:24 UTC)" executed successfully
+INFO 2025-09-19 17:03:22.619 metrics.py:345] Avg prompt throughput: 0.0 tokens/s, Avg generation throughput: 0.0 tokens/s, Running: 0 reqs, Swapped: 0 reqs, Pending: 0 reqs, GPU KV cache usage: 0.0%, CPU KV cache usage: 0.0%.
+INFO 2025-09-19 17:03:24.194 base.py:123] Running job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:34 UTC)" (scheduled at 2025-09-19 17:03:24.194048+00:00)
+INFO 2025-09-19 17:03:24.194 synchronizer_lora.py:74] Synchronizing LoRA models with local LoRA directory ...
+INFO 2025-09-19 17:03:24.196 base.py:123] Running job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:34 UTC)" (scheduled at 2025-09-19 17:03:24.195808+00:00)
+INFO 2025-09-19 17:03:24.196 synchronizer_custom_model.py:66] Synchronizing CustomModels models with local directory ...
+INFO 2025-09-19 17:03:24.373 synchronizer_custom_model.py:82] Done synchronizing CustomModels models with local directory
+INFO 2025-09-19 17:03:24.373 base.py:144] Job "CustomModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:34 UTC)" executed successfully
+INFO 2025-09-19 17:03:24.427 synchronizer_lora.py:86] Done synchronizing LoRA models with local LoRA directory
+INFO 2025-09-19 17:03:24.427 base.py:144] Job "LoRAModelSynchronizer.synchronize (trigger: interval[0:00:10], next run at: 2025-09-19 17:03:34 UTC)" executed successfully

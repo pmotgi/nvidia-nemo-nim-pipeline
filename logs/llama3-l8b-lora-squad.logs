@@ -1,0 +1,1120 @@
+[NeMo W 2025-09-19 15:31:22 nemo_logging:405] /usr/local/lib/python3.12/dist-packages/pydub/utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+      warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    
+Configuring global options
+Dry run for task nemo.collections.llm.api:finetune
+Resolved Arguments
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Argument Name    ┃ Resolved Value                                            ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ data             │ SquadDataModule(seq_length=4096, micro_batch_size=2,      │
+│                  │ global_batch_size=16)                                     │
+│ log              │ NeMoLogger(                                               │
+│                  │   name='default',                                         │
+│                  │   log_dir='/data/nvidia-pipeline/finetuned-models/llama3… │
+│                  │   ckpt=ModelCheckpoint(                                   │
+│                  │     save_last='link',                                     │
+│                  │     save_top_k=2,                                         │
+│                  │     every_n_train_steps=50,                               │
+│                  │     filename='{model_name}--{val_loss:.2f}-{step}-{consu… │
+│                  │   tensorboard=TensorBoardLogger(save_dir='tb_logs',       │
+│                  │ name='default'),                                          │
+│                  │   wandb=None)                                             │
+│ model            │ LlamaModel(                                               │
+│                  │   config=Llama31Config8B(cross_entropy_loss_fusion=False, │
+│                  │ seq_length=2048))                                         │
+│ optim            │ MegatronOptimizerModule(                                  │
+│                  │   config=OptimizerConfig(                                 │
+│                  │     optimizer='adam',                                     │
+│                  │     lr=0.0001,                                            │
+│                  │     weight_decay=0.1,                                     │
+│                  │     fp16=False,                                           │
+│                  │     bf16=True,                                            │
+│                  │     adam_beta1=0.9,                                       │
+│                  │     adam_beta2=0.98,                                      │
+│                  │     adam_eps=1e-05,                                       │
+│                  │     use_distributed_optimizer=False,                      │
+│                  │     clip_grad=1.0),                                       │
+│                  │   lr_scheduler=CosineAnnealingScheduler(warmup_steps=50,  │
+│                  │ constant_steps=0, min_lr=0))                              │
+│ peft             │ LoRA()                                                    │
+│ resume           │ AutoResume(                                               │
+│                  │   restore_config=RestoreConfig(path='nemo://meta-llama/L… │
+│ tokenizer        │ 'model'                                                   │
+│ trainer          │ Trainer(                                                  │
+│                  │   accelerator='gpu',                                      │
+│                  │   strategy=MegatronStrategy(                              │
+│                  │     tensor_model_parallel_size=1,                         │
+│                  │     pipeline_model_parallel_size=1,                       │
+│                  │     virtual_pipeline_model_parallel_size=None,            │
+│                  │     context_parallel_size=1,                              │
+│                  │     sequence_parallel=False,                              │
+│                  │     pipeline_dtype=torch.bfloat16,                        │
+│                  │     ckpt_load_strictness='log_all',                       │
+│                  │     gradient_as_bucket_view=True),                        │
+│                  │   devices='1',                                            │
+│                  │   num_nodes=1,                                            │
+│                  │   callbacks=[TimingCallback()],                           │
+│                  │   max_steps=50,                                           │
+│                  │   limit_val_batches=None,                                 │
+│                  │   limit_test_batches=None,                                │
+│                  │   val_check_interval=30,                                  │
+│                  │   log_every_n_steps=1,                                    │
+│                  │   accumulate_grad_batches=1,                              │
+│                  │   use_distributed_sampler=False,                          │
+│                  │   plugins=MegatronMixedPrecision(                         │
+│                  │     precision='bf16-mixed',                               │
+│                  │     params_dtype=torch.bfloat16,                          │
+│                  │     pipeline_dtype=torch.bfloat16,                        │
+│                  │     autocast_enabled=False,                               │
+│                  │     grad_reduce_in_fp32=True))                            │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+Launching finetune...
+💡 Tip: For seamless cloud uploads and versioning, try installing [litmodels](https://pypi.org/project/litmodels/) to enable LitModelCheckpoint, which syncs automatically with the Lightning model registry.
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[NeMo I 2025-09-19 15:31:24 nemo_logging:393] Disabling try_restore_best_ckpt restoration for adapters
+[NeMo I 2025-09-19 15:31:24 nemo_logging:393] Experiments will be logged at /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24
+[NeMo W 2025-09-19 15:31:24 nemo_logging:405] "update_logger_directory" is True. Overwriting tensorboard logger "save_dir" to /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/tb_logs
+[NeMo W 2025-09-19 15:31:24 nemo_logging:405] The Trainer already contains a ModelCheckpoint callback. This will be overwritten.
+[NeMo W 2025-09-19 15:31:24 nemo_logging:405] The checkpoint callback was told to monitor a validation value and trainer's max_steps was set to 50. Please ensure that max_steps will run for at least 1 epochs to ensure that checkpointing will not error out.
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has data parallel group : [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has combined group of data parallel and context parallel : [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All data parallel group ranks with context parallel combined: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Ranks 0 has data parallel rank: 0
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has context parallel group: [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All context parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Ranks 0 has context parallel rank: 0
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has model parallel group: [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has tensor model parallel group: [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All tensor model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has embedding group: [0]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All pipeline model parallel group ranks: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] All embedding group ranks: [[0]]
+[NeMo I 2025-09-19 15:31:25 nemo_logging:393] Rank 0 has embedding rank: 0
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Bootstrap: Using eth0:10.236.5.34<0>
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO cudaDriverVersion 13000
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO NCCL version 2.27.3+cuda12.9
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Comm config Blocking set to 1
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/Plugin: Plugin name set by env to libnccl-net.so
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/Plugin: Loaded net plugin NCCL RDMA Plugin v10 (v10)
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/Plugin: Loaded collnet plugin NCCL RDMA Plugin v10 (v10)
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Successfully loaded external plugin libnccl-net.so
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Plugin Path : /opt/hpcx/nccl_rdma_sharp_plugin/lib/libnccl-net.so
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO P2P plugin v10 IBext_v10
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/IB : No device found.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:10.236.5.34<0>
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/IB : No device found.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/IB : Using [RO]; OOB eth0:10.236.5.34<0>
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO NET/Socket : Using [0]eth0:10.236.5.34<0>
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Initialized NET plugin Socket
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Assigned NET plugin Socket to comm
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Using network Socket
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO ncclCommInitRankConfig comm 0x1bf03e60 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0xf0acd9991e70fff7 - Init START
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO RAS client listening socket at 127.0.0.1<28028>
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Bootstrap timings total 0.014130 (create 0.000020, send 0.013828, recv 0.000064, ring 0.000001, delay 0.000000)
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Setting affinity for GPU 0 to 0-47
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO comm 0x1bf03e60 rank 0 nRanks 1 nNodes 1 localRanks 1 localRank 0 MNNVL 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 00/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 01/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 02/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 03/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 04/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 05/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 06/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 07/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 08/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 09/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 10/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 11/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 12/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 13/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 14/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 15/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 16/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 17/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 18/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 19/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 20/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 21/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 22/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 23/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 24/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 25/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 26/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 27/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 28/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 29/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 30/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 31/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 32/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 33/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 34/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 35/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 36/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 37/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 38/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 39/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 40/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 41/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 42/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 43/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 44/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 45/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 46/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 47/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 48/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 49/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 50/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 51/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 52/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 53/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 54/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 55/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 56/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 57/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 58/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 59/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 60/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 61/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 62/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Channel 63/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1 [32] -1/-1/-1->0->-1 [33] -1/-1/-1->0->-1 [34] -1/-1/-1->0->-1 [35] -1/-1/-1->0->-1 [36] -1/-1/-1->0->-1 [37] -1/-1/-1->0->-1 [38] -1/-1/-1->0->-1 [39] -1/-1/-1->0->-1 [40] -1/-1/-1->0->-1 [41] -1/-1/-1->0->-1 [42] -1/-1/-1->0->-1 [43] -1/-1/-1->0->-1 [44] -1/-1/-1->0->-1 [45] -1/-1/-1->0->-1 [46] -1/-1/
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO P2P Chunksize set to 524288
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so. 
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+nemo-gpu-lora-job-worker-0-0:78:455 [0] NCCL INFO [Proxy Service] Device 0 CPU core 35
+nemo-gpu-lora-job-worker-0-0:78:456 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 21
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO 64 coll channels, 64 collnet channels, 0 nvls channels, 64 p2p channels, 64 p2p channels per peer
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so. Using internal tuner plugin.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO TUNER/Plugin: Failed to find ncclTunerPlugin_v4 symbol.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO TUNER/Plugin: Failed to find ncclTunerPlugin_v3 symbol.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO TUNER/Plugin: Failed to find ncclTunerPlugin_v2 symbol, using internal tuner instead.
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO ncclCommInitRankConfig comm 0x1bf03e60 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0xf0acd9991e70fff7 - Init COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:453 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 1 total 0.13 (kernels 0.11, alloc 0.00, bootstrap 0.01, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.01, rest 0.00)
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[NeMo I 2025-09-19 15:31:26 nemo_logging:393] Downloading SquadDataModule...
+Generating train split:   0%|          | 0/87599 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 87599/87599 [00:00<00:00, 1738033.64 examples/s]
+Generating validation split:   0%|          | 0/10570 [00:00<?, ? examples/s]Generating validation split: 100%|██████████| 10570/10570 [00:00<00:00, 1624067.45 examples/s]
+[NeMo I 2025-09-19 15:31:29 nemo_logging:393] Preprocessing SquadDataModule to jsonl format and splitting...
+[NeMo I 2025-09-19 15:31:33 nemo_logging:393] training split saved to /root/.cache/nemo/datasets/squad/training.jsonl
+[NeMo I 2025-09-19 15:31:33 nemo_logging:393] validation split saved to /root/.cache/nemo/datasets/squad/validation.jsonl
+[NeMo I 2025-09-19 15:31:33 nemo_logging:393] test split saved to /root/.cache/nemo/datasets/squad/test.jsonl
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Setting up ModelTransform for stage: TrainerFn.FITTING
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Found model_transform attribute on pl_module
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Set model_transform to: <function _call_counter.<locals>.wrapper at 0x7bf7dc756b60>
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Padded vocab_size: 128256, original vocab_size: 128256, dummy tokens: 0.
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Apply rope scaling with factor=8.0, low_freq_factor=1.0, high_freq_factor=4.0, old_context_len=8192.
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Copying Trainer's 'max_steps' (50) to LR scheduler's 'max_steps'.
+[NeMo I 2025-09-19 15:31:35 num_microbatches_calculator:228] setting number of microbatches to constant 8
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Doing selective restore from RestoreConfig(path='/data/nvidia-pipeline/nemo-models/meta-llama/Llama-3.1-8B', load_model_state=True, load_optim_state=False, load_artifacts=True)
+[NeMo I 2025-09-19 15:31:35 nemo_logging:393] Using <megatron.core.dist_checkpointing.strategies.fully_parallel.FullyParallelLoadStrategyWrapper object at 0x7bf6dc1ee540> dist-ckpt load strategy.
+[NeMo I 2025-09-19 15:33:26 nemo_logging:393] Global Checkpoint Load : Rank : 0 : Start time : 1758295895.639s : Time spent in load_checkpoint: 111.350s
+[NeMo I 2025-09-19 15:33:26 nemo_logging:393] Restoring model weights from RestoreConfig(path='/data/nvidia-pipeline/nemo-models/meta-llama/Llama-3.1-8B', load_model_state=True, load_optim_state=False, load_artifacts=True)
+[NeMo I 2025-09-19 15:33:26 nemo_logging:393] Finished restoring from RestoreConfig(path='/data/nvidia-pipeline/nemo-models/meta-llama/Llama-3.1-8B', load_model_state=True, load_optim_state=False, load_artifacts=True), cleaning up.
+
+  | Name   | Type     | Params | Mode  | FLOPs
+----------------------------------------------------
+0 | module | GPTModel | 8.0 B  | train | 0    
+----------------------------------------------------
+8.0 B     Trainable params
+0         Non-trainable params
+8.0 B     Total params
+32,121.045Total estimated model params size (MB)
+649       Modules in train mode
+0         Modules in eval mode
+0         Total Flops
+[NeMo I 2025-09-19 15:33:27 nemo_logging:393] Adding lora to: module.decoder.layers.0.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.0.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.0.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.0.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.1.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.1.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.1.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.1.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.2.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.2.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.2.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.2.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.3.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.3.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.3.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.3.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.4.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.4.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.4.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.4.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.5.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.5.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.5.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.5.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.6.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.6.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.6.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.6.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.7.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.7.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.7.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.7.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.8.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.8.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.8.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.8.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.9.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.9.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.9.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.9.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.10.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.10.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.10.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.10.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.11.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.11.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.11.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.11.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.12.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.12.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.12.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.12.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.13.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.13.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.13.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.13.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.14.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.14.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.14.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.14.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.15.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.15.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.15.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.15.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.16.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.16.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.16.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.16.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.17.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.17.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.17.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.17.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.18.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.18.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.18.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.18.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.19.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.19.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.19.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.19.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.20.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.20.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.20.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.20.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.21.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.21.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.21.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.21.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.22.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.22.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.22.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.22.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.23.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.23.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.23.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.23.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.24.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.24.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.24.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.24.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.25.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.25.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.25.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.25.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.26.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.26.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.26.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.26.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.27.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.27.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.27.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.27.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.28.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.28.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.28.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.28.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.29.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.29.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.29.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.29.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.30.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.30.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.30.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.30.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.31.self_attention.linear_proj
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.31.self_attention.linear_qkv
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.31.mlp.linear_fc1
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Adding lora to: module.decoder.layers.31.mlp.linear_fc2
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] After applying model_transform:
+    
+      | Name   | Type     | Params | Mode  | FLOPs
+    ----------------------------------------------------
+    0 | module | GPTModel | 8.1 B  | train | 0    
+    ----------------------------------------------------
+    71.3 M    Trainable params
+    8.0 B     Non-trainable params
+    8.1 B     Total params
+    32,406.258Total estimated model params size (MB)
+    1289      Modules in train mode
+    0         Modules in eval mode
+    0         Total Flops
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Initializing model parallel
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393]  > number of parameters on (tensor, pipeline) model parallel rank (0 ,0): 8101564416
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393]  > number of trainable parameters: 71303168 (0.88% of total)
+[NeMo I 2025-09-19 15:33:28 utils:661] Setting up DistributedDataParallel with config DistributedDataParallelConfig(grad_reduce_in_fp32=True, overlap_grad_reduce=False, overlap_param_gather=False, align_param_gather=False, use_distributed_optimizer=False, num_distributed_optimizer_instances=1, check_for_nan_in_grad=True, check_for_large_grads=False, bucket_size=None, pad_buckets_for_high_nccl_busbw=False, average_in_collective=False, fp8_param_gather=False, reuse_grad_buf_for_mxfp8_param_ag=False, use_custom_fsdp=False, data_parallel_sharding_strategy='no_shard', gradient_reduce_div_fusion=True, suggested_communication_unit_size=None, preserve_fp32_weights=True, keep_fp8_transpose_cache_when_using_custom_fsdp=False, nccl_ub=False, fsdp_double_buffer=False)
+[NeMo I 2025-09-19 15:33:28 utils:682] Number of buckets for gradient all-reduce / reduce-scatter: 1
+    Params for bucket 1 (71303168 elements, 71303168 padded size):
+    	module.decoder.layers.30.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.26.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.20.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.16.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.12.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.6.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.3.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.0.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.28.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.25.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.21.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.18.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.14.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.10.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.7.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.4.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.1.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.0.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.29.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.26.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.23.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.19.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.12.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.9.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.5.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.2.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.30.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.27.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.21.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.18.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.16.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.13.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.10.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.7.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.4.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.1.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.28.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.22.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.19.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.14.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.11.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.8.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.2.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.30.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.27.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.23.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.20.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.16.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.12.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.9.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.6.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.3.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.31.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.28.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.25.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.21.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.14.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.11.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.7.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.4.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.29.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.23.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.20.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.15.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.12.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.9.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.6.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.3.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.30.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.24.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.21.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.18.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.16.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.13.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.7.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.4.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.1.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.0.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.29.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.25.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.22.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.14.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.8.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.5.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.30.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.27.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.23.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.17.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.16.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.13.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.9.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.0.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.31.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.25.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.22.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.18.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.14.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.11.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.8.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.5.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.1.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.26.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.23.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.20.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.9.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.6.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.3.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.31.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.27.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.24.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.18.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.17.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.10.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.1.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.29.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.25.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.19.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.15.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.11.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.5.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.2.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.27.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.24.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.20.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.15.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.13.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.6.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.3.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.28.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.25.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.22.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.18.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.11.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.8.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.5.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.1.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.29.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.26.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.20.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.17.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.12.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.6.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.3.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.0.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.31.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.27.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.21.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.18.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.17.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.13.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.10.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.7.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.4.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.1.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.29.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.26.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.22.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.19.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.15.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.11.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.8.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.2.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.30.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.27.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.24.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.20.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.16.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.15.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.13.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.10.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.6.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.3.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.31.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.28.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.22.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.19.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.14.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.11.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.8.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.5.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.2.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.29.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.23.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.20.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.15.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.12.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.9.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.6.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.3.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.31.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.28.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.24.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.21.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.17.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.13.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.7.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.4.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.29.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.26.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.22.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.15.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.12.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.8.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.30.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.24.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.21.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.17.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.16.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.13.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.10.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.7.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.4.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.0.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.22.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.31.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.25.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.19.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.14.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.8.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.5.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.2.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.30.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.26.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.23.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.16.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.9.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.0.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.31.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.28.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.24.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.18.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.14.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.10.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.1.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.26.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.23.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.19.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.15.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.12.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.9.self_attention.linear_proj.adapter.linear_in.weight
+    	module.decoder.layers.5.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.2.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.27.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.24.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.21.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.17.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.17.self_attention.linear_qkv.adapter.linear_out.weight
+    	module.decoder.layers.10.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.7.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.4.self_attention.linear_proj.adapter.linear_out.weight
+    	module.decoder.layers.0.mlp.linear_fc2.adapter.linear_out.weight
+    	module.decoder.layers.28.mlp.linear_fc2.adapter.linear_in.weight
+    	module.decoder.layers.25.mlp.linear_fc1.adapter.linear_out.weight
+    	module.decoder.layers.19.self_attention.linear_qkv.adapter.linear_in.weight
+    	module.decoder.layers.11.mlp.linear_fc1.adapter.linear_in.weight
+    	module.decoder.layers.2.self_attention.linear_qkv.adapter.linear_in.weight
+[NeMo I 2025-09-19 15:33:28 nemo_logging:393] Setting up optimizers
+[NeMo I 2025-09-19 15:33:28 utils:661] Setting up optimizer with config OptimizerConfig(optimizer='adam', lr=0.0001, min_lr=None, decoupled_lr=None, decoupled_min_lr=None, weight_decay=0.1, fp8_recipe='delayed', fp16=False, bf16=True, reuse_grad_buf_for_mxfp8_param_ag=False, params_dtype=torch.bfloat16, use_precision_aware_optimizer=False, store_param_remainders=True, main_grads_dtype=torch.float32, main_params_dtype=torch.float32, exp_avg_dtype=torch.float32, exp_avg_sq_dtype=torch.float32, loss_scale=None, initial_loss_scale=4294967296, min_loss_scale=1.0, loss_scale_window=1000, hysteresis=2, adam_beta1=0.9, adam_beta2=0.98, adam_eps=1e-05, sgd_momentum=0.9, use_distributed_optimizer=False, overlap_param_gather_with_optimizer_step=False, optimizer_cpu_offload=False, optimizer_offload_fraction=0.0, use_torch_optimizer_for_cpu_offload=False, overlap_cpu_optimizer_d2h_h2d=False, pin_cpu_grads=True, pin_cpu_params=True, clip_grad=1.0, log_num_zeros_in_grad=False, barrier_with_L1_time=False, timers=None, config_logger_dir='')
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Comm config Blocking set to 1
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Assigned NET plugin Socket to comm
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Using network Socket
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO ncclCommInitRankConfig comm 0x46132790 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x210d6c03808349e3 - Init START
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Bootstrap timings total 0.000260 (create 0.000032, send 0.000059, recv 0.000097, ring 0.000001, delay 0.000000)
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Setting affinity for GPU 0 to 0-47
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO comm 0x46132790 rank 0 nRanks 1 nNodes 1 localRanks 1 localRank 0 MNNVL 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 00/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 01/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 02/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 03/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 04/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 05/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 06/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 07/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 08/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 09/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 10/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 11/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 12/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 13/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 14/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 15/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 16/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 17/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 18/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 19/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 20/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 21/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 22/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 23/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 24/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 25/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 26/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 27/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 28/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 29/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 30/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 31/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 32/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 33/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 34/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 35/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 36/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 37/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 38/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 39/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 40/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 41/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 42/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 43/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 44/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 45/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 46/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 47/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 48/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 49/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 50/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 51/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 52/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 53/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 54/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 55/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 56/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 57/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 58/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 59/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 60/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 61/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 62/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Channel 63/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1 [32] -1/-1/-1->0->-1 [33] -1/-1/-1->0->-1 [34] -1/-1/-1->0->-1 [35] -1/-1/-1->0->-1 [36] -1/-1/-1->0->-1 [37] -1/-1/-1->0->-1 [38] -1/-1/-1->0->-1 [39] -1/-1/-1->0->-1 [40] -1/-1/-1->0->-1 [41] -1/-1/-1->0->-1 [42] -1/-1/-1->0->-1 [43] -1/-1/-1->0->-1 [44] -1/-1/-1->0->-1 [45] -1/-1/-1->0->-1 [46] -1/-1
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO P2P Chunksize set to 524288
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+nemo-gpu-lora-job-worker-0-0:78:1095 [0] NCCL INFO [Proxy Service] Device 0 CPU core 4
+nemo-gpu-lora-job-worker-0-0:78:1096 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 24
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO 64 coll channels, 64 collnet channels, 0 nvls channels, 64 p2p channels, 64 p2p channels per peer
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO ncclCommInitRankConfig comm 0x46132790 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x210d6c03808349e3 - Init COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:1094 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 1 total 0.01 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.01, rest 0.00)
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Comm config Blocking set to 1
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Assigned NET plugin Socket to comm
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Using network Socket
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e206ce0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x5642247f8713f640 - Init START
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Bootstrap timings total 0.000321 (create 0.000021, send 0.000068, recv 0.000163, ring 0.000001, delay 0.000000)
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Setting affinity for GPU 0 to 0-47
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO comm 0x4e206ce0 rank 0 nRanks 1 nNodes 1 localRanks 1 localRank 0 MNNVL 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 00/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 01/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 02/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 03/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 04/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 05/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 06/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 07/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 08/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 09/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 10/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 11/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 12/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 13/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 14/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 15/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 16/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 17/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 18/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 19/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 20/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 21/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 22/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 23/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 24/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 25/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 26/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 27/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 28/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 29/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 30/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 31/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 32/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 33/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 34/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 35/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 36/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 37/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 38/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 39/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 40/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 41/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 42/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 43/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 44/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 45/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 46/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 47/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 48/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 49/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 50/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 51/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 52/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 53/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 54/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 55/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 56/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 57/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 58/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 59/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 60/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 61/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 62/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Channel 63/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1 [32] -1/-1/-1->0->-1 [33] -1/-1/-1->0->-1 [34] -1/-1/-1->0->-1 [35] -1/-1/-1->0->-1 [36] -1/-1/-1->0->-1 [37] -1/-1/-1->0->-1 [38] -1/-1/-1->0->-1 [39] -1/-1/-1->0->-1 [40] -1/-1/-1->0->-1 [41] -1/-1/-1->0->-1 [42] -1/-1/-1->0->-1 [43] -1/-1/-1->0->-1 [44] -1/-1/-1->0->-1 [45] -1/-1/-1->0->-1 [46] -1/-1
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO P2P Chunksize set to 524288
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+nemo-gpu-lora-job-worker-0-0:78:1099 [0] NCCL INFO [Proxy Service] Device 0 CPU core 24
+nemo-gpu-lora-job-worker-0-0:78:1100 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 5
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO 64 coll channels, 64 collnet channels, 0 nvls channels, 64 p2p channels, 64 p2p channels per peer
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e206ce0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x5642247f8713f640 - Init COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:1098 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 1 total 0.02 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.01, graphs 0.00, connections 0.01, rest 0.00)
+[NeMo W 2025-09-19 15:33:32 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('global_batch_size', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+    
+[NeMo W 2025-09-19 15:33:32 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('val_loss', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+    
+[rank: 0] Received SIGTERM: 15
+[rank: 0] Received SIGTERM: 15
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Comm config Blocking set to 1
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Assigned NET plugin Socket to comm
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Using network Socket
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e3ffbc0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x2878d14fd720afd4 - Init START
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Bootstrap timings total 0.000343 (create 0.000033, send 0.000098, recv 0.000110, ring 0.000001, delay 0.000000)
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Setting affinity for GPU 0 to 0-47
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO comm 0x4e3ffbc0 rank 0 nRanks 1 nNodes 1 localRanks 1 localRank 0 MNNVL 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 00/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 01/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 02/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 03/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 04/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 05/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 06/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 07/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 08/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 09/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 10/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 11/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 12/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 13/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 14/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 15/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 16/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 17/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 18/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 19/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 20/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 21/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 22/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 23/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 24/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 25/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 26/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 27/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 28/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 29/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 30/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 31/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 32/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 33/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 34/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 35/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 36/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 37/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 38/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 39/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 40/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 41/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 42/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 43/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 44/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 45/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 46/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 47/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 48/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 49/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 50/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 51/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 52/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 53/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 54/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 55/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 56/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 57/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 58/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 59/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 60/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 61/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 62/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Channel 63/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1 [32] -1/-1/-1->0->-1 [33] -1/-1/-1->0->-1 [34] -1/-1/-1->0->-1 [35] -1/-1/-1->0->-1 [36] -1/-1/-1->0->-1 [37] -1/-1/-1->0->-1 [38] -1/-1/-1->0->-1 [39] -1/-1/-1->0->-1 [40] -1/-1/-1->0->-1 [41] -1/-1/-1->0->-1 [42] -1/-1/-1->0->-1 [43] -1/-1/-1->0->-1 [44] -1/-1/-1->0->-1 [45] -1/-1/-1->0->-1 [46] -1/-1
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO P2P Chunksize set to 524288
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+nemo-gpu-lora-job-worker-0-0:78:1142 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 24
+nemo-gpu-lora-job-worker-0-0:78:1141 [0] NCCL INFO [Proxy Service] Device 0 CPU core 4
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO 64 coll channels, 64 collnet channels, 0 nvls channels, 64 p2p channels, 64 p2p channels per peer
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO ncclCommInitRankConfig comm 0x4e3ffbc0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x2878d14fd720afd4 - Init COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:1140 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 1 total 0.01 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.01, rest 0.00)
+[NeMo W 2025-09-19 15:33:35 rerun_state_machine:1263] Implicit initialization of Rerun State Machine!
+[NeMo W 2025-09-19 15:33:35 rerun_state_machine:239] RerunStateMachine initialized in mode RerunMode.DISABLED
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO Comm config Blocking set to 1
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Assigned NET plugin Socket to comm
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Using network Socket
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO ncclCommInitRankConfig comm 0x4fb250d0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x521c9dc9acd25db8 - Init START
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Bootstrap timings total 0.000405 (create 0.000034, send 0.000081, recv 0.000193, ring 0.000001, delay 0.000000)
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Setting affinity for GPU 0 to 0-47
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO comm 0x4fb250d0 rank 0 nRanks 1 nNodes 1 localRanks 1 localRank 0 MNNVL 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 00/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 01/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 02/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 03/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 04/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 05/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 06/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 07/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 08/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 09/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 10/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 11/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 12/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 13/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 14/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 15/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 16/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 17/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 18/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 19/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 20/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 21/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 22/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 23/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 24/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 25/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 26/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 27/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 28/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 29/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 30/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 31/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 32/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 33/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 34/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 35/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 36/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 37/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 38/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 39/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 40/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 41/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 42/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 43/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 44/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 45/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 46/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 47/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 48/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 49/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 50/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 51/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 52/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 53/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 54/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 55/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 56/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 57/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 58/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 59/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 60/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 61/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 62/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Channel 63/64 : 0
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Trees [0] -1/-1/-1->0->-1 [1] -1/-1/-1->0->-1 [2] -1/-1/-1->0->-1 [3] -1/-1/-1->0->-1 [4] -1/-1/-1->0->-1 [5] -1/-1/-1->0->-1 [6] -1/-1/-1->0->-1 [7] -1/-1/-1->0->-1 [8] -1/-1/-1->0->-1 [9] -1/-1/-1->0->-1 [10] -1/-1/-1->0->-1 [11] -1/-1/-1->0->-1 [12] -1/-1/-1->0->-1 [13] -1/-1/-1->0->-1 [14] -1/-1/-1->0->-1 [15] -1/-1/-1->0->-1 [16] -1/-1/-1->0->-1 [17] -1/-1/-1->0->-1 [18] -1/-1/-1->0->-1 [19] -1/-1/-1->0->-1 [20] -1/-1/-1->0->-1 [21] -1/-1/-1->0->-1 [22] -1/-1/-1->0->-1 [23] -1/-1/-1->0->-1 [24] -1/-1/-1->0->-1 [25] -1/-1/-1->0->-1 [26] -1/-1/-1->0->-1 [27] -1/-1/-1->0->-1 [28] -1/-1/-1->0->-1 [29] -1/-1/-1->0->-1 [30] -1/-1/-1->0->-1 [31] -1/-1/-1->0->-1 [32] -1/-1/-1->0->-1 [33] -1/-1/-1->0->-1 [34] -1/-1/-1->0->-1 [35] -1/-1/-1->0->-1 [36] -1/-1/-1->0->-1 [37] -1/-1/-1->0->-1 [38] -1/-1/-1->0->-1 [39] -1/-1/-1->0->-1 [40] -1/-1/-1->0->-1 [41] -1/-1/-1->0->-1 [42] -1/-1/-1->0->-1 [43] -1/-1/-1->0->-1 [44] -1/-1/-1->0->-1 [45] -1/-1/-1->0->-1 [46] -1/-1
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO P2P Chunksize set to 524288
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Check P2P Type isAllDirectP2p 0 directMode 0
+nemo-gpu-lora-job-worker-0-0:78:1580 [0] NCCL INFO [Proxy Service] Device 0 CPU core 7
+nemo-gpu-lora-job-worker-0-0:78:1581 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 23
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO 64 coll channels, 64 collnet channels, 0 nvls channels, 64 p2p channels, 64 p2p channels per peer
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO CC Off, workFifoBytes 1048576
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO ncclCommInitRankConfig comm 0x4fb250d0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 4000 commId 0x521c9dc9acd25db8 - Init COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:1579 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 1 total 0.01 (kernels 0.00, alloc 0.00, bootstrap 0.00, allgathers 0.00, topo 0.00, graphs 0.00, connections 0.01, rest 0.00)
+Training epoch 0, iteration 0/49 | lr: 1.961e-06 | global_batch_size: 16 | global_step: 0 | reduced_train_loss: 1.99 | train_step_timing in s: 2.357
+Training epoch 0, iteration 1/49 | lr: 3.922e-06 | global_batch_size: 16 | global_step: 1 | reduced_train_loss: 1.374 | train_step_timing in s: 1.69 | consumed_samples: 32
+Training epoch 0, iteration 2/49 | lr: 5.882e-06 | global_batch_size: 16 | global_step: 2 | reduced_train_loss: 1.425 | train_step_timing in s: 0.8474 | consumed_samples: 48
+Training epoch 0, iteration 3/49 | lr: 7.843e-06 | global_batch_size: 16 | global_step: 3 | reduced_train_loss: 1.543 | train_step_timing in s: 0.8169 | consumed_samples: 64
+Training epoch 0, iteration 4/49 | lr: 9.804e-06 | global_batch_size: 16 | global_step: 4 | reduced_train_loss: 1.955 | train_step_timing in s: 0.8667 | consumed_samples: 80
+Training epoch 0, iteration 5/49 | lr: 1.176e-05 | global_batch_size: 16 | global_step: 5 | reduced_train_loss: 1.875 | train_step_timing in s: 1.377 | consumed_samples: 96
+Training epoch 0, iteration 6/49 | lr: 1.373e-05 | global_batch_size: 16 | global_step: 6 | reduced_train_loss: 1.173 | train_step_timing in s: 0.8161 | consumed_samples: 112
+Training epoch 0, iteration 7/49 | lr: 1.569e-05 | global_batch_size: 16 | global_step: 7 | reduced_train_loss: 1.081 | train_step_timing in s: 0.878 | consumed_samples: 128
+Training epoch 0, iteration 8/49 | lr: 1.765e-05 | global_batch_size: 16 | global_step: 8 | reduced_train_loss: 1.384 | train_step_timing in s: 0.8269 | consumed_samples: 144
+Training epoch 0, iteration 9/49 | lr: 1.961e-05 | global_batch_size: 16 | global_step: 9 | reduced_train_loss: 1.068 | train_step_timing in s: 0.8251 | consumed_samples: 160
+Training epoch 0, iteration 10/49 | lr: 2.157e-05 | global_batch_size: 16 | global_step: 10 | reduced_train_loss: 0.8125 | train_step_timing in s: 0.8669 | consumed_samples: 176
+Training epoch 0, iteration 11/49 | lr: 2.353e-05 | global_batch_size: 16 | global_step: 11 | reduced_train_loss: 0.7376 | train_step_timing in s: 0.8242 | consumed_samples: 192
+Training epoch 0, iteration 12/49 | lr: 2.549e-05 | global_batch_size: 16 | global_step: 12 | reduced_train_loss: 0.701 | train_step_timing in s: 0.8234 | consumed_samples: 208
+Training epoch 0, iteration 13/49 | lr: 2.745e-05 | global_batch_size: 16 | global_step: 13 | reduced_train_loss: 0.5297 | train_step_timing in s: 0.8305 | consumed_samples: 224
+Training epoch 0, iteration 14/49 | lr: 2.941e-05 | global_batch_size: 16 | global_step: 14 | reduced_train_loss: 0.3756 | train_step_timing in s: 0.8224 | consumed_samples: 240
+Training epoch 0, iteration 15/49 | lr: 3.137e-05 | global_batch_size: 16 | global_step: 15 | reduced_train_loss: 0.4008 | train_step_timing in s: 0.8296 | consumed_samples: 256
+Training epoch 0, iteration 16/49 | lr: 3.333e-05 | global_batch_size: 16 | global_step: 16 | reduced_train_loss: 0.4029 | train_step_timing in s: 0.8187 | consumed_samples: 272
+Training epoch 0, iteration 17/49 | lr: 3.529e-05 | global_batch_size: 16 | global_step: 17 | reduced_train_loss: 0.1483 | train_step_timing in s: 0.8243 | consumed_samples: 288
+Training epoch 0, iteration 18/49 | lr: 3.725e-05 | global_batch_size: 16 | global_step: 18 | reduced_train_loss: 0.2237 | train_step_timing in s: 0.8226 | consumed_samples: 304
+Training epoch 0, iteration 19/49 | lr: 3.922e-05 | global_batch_size: 16 | global_step: 19 | reduced_train_loss: 0.3885 | train_step_timing in s: 1.04 | consumed_samples: 320
+Training epoch 0, iteration 20/49 | lr: 4.118e-05 | global_batch_size: 16 | global_step: 20 | reduced_train_loss: 0.3386 | train_step_timing in s: 0.8267 | consumed_samples: 336
+Training epoch 0, iteration 21/49 | lr: 4.314e-05 | global_batch_size: 16 | global_step: 21 | reduced_train_loss: 0.2146 | train_step_timing in s: 0.8201 | consumed_samples: 352
+Training epoch 0, iteration 22/49 | lr: 4.51e-05 | global_batch_size: 16 | global_step: 22 | reduced_train_loss: 0.4092 | train_step_timing in s: 0.8247 | consumed_samples: 368
+Training epoch 0, iteration 23/49 | lr: 4.706e-05 | global_batch_size: 16 | global_step: 23 | reduced_train_loss: 0.3084 | train_step_timing in s: 1.246 | consumed_samples: 384
+Training epoch 0, iteration 24/49 | lr: 4.902e-05 | global_batch_size: 16 | global_step: 24 | reduced_train_loss: 0.246 | train_step_timing in s: 0.8721 | consumed_samples: 400
+Training epoch 0, iteration 25/49 | lr: 5.098e-05 | global_batch_size: 16 | global_step: 25 | reduced_train_loss: 0.3566 | train_step_timing in s: 1.229 | consumed_samples: 416
+Training epoch 0, iteration 26/49 | lr: 5.294e-05 | global_batch_size: 16 | global_step: 26 | reduced_train_loss: 0.3185 | train_step_timing in s: 0.8265 | consumed_samples: 432
+Training epoch 0, iteration 27/49 | lr: 5.49e-05 | global_batch_size: 16 | global_step: 27 | reduced_train_loss: 0.2301 | train_step_timing in s: 1.293 | consumed_samples: 448
+Training epoch 0, iteration 28/49 | lr: 5.686e-05 | global_batch_size: 16 | global_step: 28 | reduced_train_loss: 0.2816 | train_step_timing in s: 0.824 | consumed_samples: 464
+Training epoch 0, iteration 29/49 | lr: 5.882e-05 | global_batch_size: 16 | global_step: 29 | reduced_train_loss: 0.1269 | train_step_timing in s: 0.9938 | consumed_samples: 480
+Validation: iteration 1/0
+Validation: iteration 2/0
+Validation: iteration 3/0
+Validation: iteration 4/0
+Validation: iteration 5/0
+Validation: iteration 6/0
+Validation: iteration 7/0
+Validation: iteration 8/0
+Validation: iteration 9/0
+Validation: iteration 10/0
+Validation: iteration 11/0
+Validation: iteration 12/0
+Validation: iteration 13/0
+Validation: iteration 14/0
+Validation: iteration 15/0
+Validation: iteration 16/0
+Validation: iteration 17/0
+Validation: iteration 18/0
+Validation: iteration 19/0
+Validation: iteration 20/0
+Validation: iteration 21/0
+Validation: iteration 22/0
+Validation: iteration 23/0
+Validation: iteration 24/0
+Validation: iteration 25/0
+Validation: iteration 26/0
+Validation: iteration 27/0
+Validation: iteration 28/0
+Validation: iteration 29/0
+Validation: iteration 30/0
+Validation: iteration 31/0
+Validation: iteration 32/0
+Validation: iteration 33/0
+Validation: iteration 34/0
+[NeMo I 2025-09-19 15:39:23 nemo_logging:393] Using FullyParallelSaveStrategyWrapper(torch_dist, 1) dist-ckpt save strategy.
+[NeMo W 2025-09-19 15:39:33 nemo_logging:405] /usr/local/lib/python3.12/dist-packages/pydub/utils.py:170: RuntimeWarning: Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work
+      warn("Couldn't find ffmpeg or avconv - defaulting to ffmpeg, but may not work", RuntimeWarning)
+    
+[NeMo I 2025-09-19 15:39:34 nemo_logging:393] Global Checkpoint Save : Rank: 0 : Iteration: 30 : Start time: 1758296363.499s : Save duration: 10.893s
+[NeMo I 2025-09-19 15:39:38 nemo_logging:393] Scheduled async checkpoint save for /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=29-consumed_samples=480.0-last.ckpt
+Training epoch 0, iteration 30/49 | lr: 6.078e-05 | global_batch_size: 16 | global_step: 30 | reduced_train_loss: 0.4328 | train_step_timing in s: 0.8076 | consumed_samples: 496 | val_loss: 0.2714
+[NeMo I 2025-09-19 15:39:38 nemo_logging:393] Async finalization time took 0.000 s
+Training epoch 0, iteration 31/49 | lr: 6.275e-05 | global_batch_size: 16 | global_step: 31 | reduced_train_loss: 0.2301 | train_step_timing in s: 1.114 | consumed_samples: 512 | val_loss: 0.2714
+[NeMo I 2025-09-19 15:39:42 nemo_logging:393] Successfully saved checkpoint from iteration      30 to /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=29-consumed_samples=480.0-last.ckpt
+[NeMo I 2025-09-19 15:39:43 nemo_logging:393] Async checkpoint save for step 30 (/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=29-consumed_samples=480.0-last.ckpt) finalized successfully.
+[NeMo I 2025-09-19 15:39:43 nemo_logging:393] Async finalization time took 0.898 s
+Training epoch 0, iteration 32/49 | lr: 6.471e-05 | global_batch_size: 16 | global_step: 32 | reduced_train_loss: 0.2959 | train_step_timing in s: 0.8197 | consumed_samples: 528 | val_loss: 0.2714
+Training epoch 0, iteration 33/49 | lr: 6.667e-05 | global_batch_size: 16 | global_step: 33 | reduced_train_loss: 0.3285 | train_step_timing in s: 0.8202 | consumed_samples: 544 | val_loss: 0.2714
+Training epoch 0, iteration 34/49 | lr: 6.863e-05 | global_batch_size: 16 | global_step: 34 | reduced_train_loss: 0.2272 | train_step_timing in s: 0.8194 | consumed_samples: 560 | val_loss: 0.2714
+Training epoch 0, iteration 35/49 | lr: 7.059e-05 | global_batch_size: 16 | global_step: 35 | reduced_train_loss: 0.2491 | train_step_timing in s: 0.8268 | consumed_samples: 576 | val_loss: 0.2714
+Training epoch 0, iteration 36/49 | lr: 7.255e-05 | global_batch_size: 16 | global_step: 36 | reduced_train_loss: 0.2551 | train_step_timing in s: 0.8105 | consumed_samples: 592 | val_loss: 0.2714
+Training epoch 0, iteration 37/49 | lr: 7.451e-05 | global_batch_size: 16 | global_step: 37 | reduced_train_loss: 0.2334 | train_step_timing in s: 1.029 | consumed_samples: 608 | val_loss: 0.2714
+Training epoch 0, iteration 38/49 | lr: 7.647e-05 | global_batch_size: 16 | global_step: 38 | reduced_train_loss: 0.3628 | train_step_timing in s: 0.8002 | consumed_samples: 624 | val_loss: 0.2714
+Training epoch 0, iteration 39/49 | lr: 7.843e-05 | global_batch_size: 16 | global_step: 39 | reduced_train_loss: 0.1338 | train_step_timing in s: 0.8071 | consumed_samples: 640 | val_loss: 0.2714
+Training epoch 0, iteration 40/49 | lr: 8.039e-05 | global_batch_size: 16 | global_step: 40 | reduced_train_loss: 0.2018 | train_step_timing in s: 0.8153 | consumed_samples: 656 | val_loss: 0.2714
+Training epoch 0, iteration 41/49 | lr: 8.235e-05 | global_batch_size: 16 | global_step: 41 | reduced_train_loss: 0.2639 | train_step_timing in s: 0.8197 | consumed_samples: 672 | val_loss: 0.2714
+Training epoch 0, iteration 42/49 | lr: 8.431e-05 | global_batch_size: 16 | global_step: 42 | reduced_train_loss: 0.2139 | train_step_timing in s: 0.8241 | consumed_samples: 688 | val_loss: 0.2714
+Training epoch 0, iteration 43/49 | lr: 8.627e-05 | global_batch_size: 16 | global_step: 43 | reduced_train_loss: 0.1279 | train_step_timing in s: 0.8234 | consumed_samples: 704 | val_loss: 0.2714
+Training epoch 0, iteration 44/49 | lr: 8.824e-05 | global_batch_size: 16 | global_step: 44 | reduced_train_loss: 0.2406 | train_step_timing in s: 1.326 | consumed_samples: 720 | val_loss: 0.2714
+Training epoch 0, iteration 45/49 | lr: 9.02e-05 | global_batch_size: 16 | global_step: 45 | reduced_train_loss: 0.1981 | train_step_timing in s: 0.8182 | consumed_samples: 736 | val_loss: 0.2714
+Training epoch 0, iteration 46/49 | lr: 9.216e-05 | global_batch_size: 16 | global_step: 46 | reduced_train_loss: 0.4232 | train_step_timing in s: 0.8176 | consumed_samples: 752 | val_loss: 0.2714
+Training epoch 0, iteration 47/49 | lr: 9.412e-05 | global_batch_size: 16 | global_step: 47 | reduced_train_loss: 0.2233 | train_step_timing in s: 0.9026 | consumed_samples: 768 | val_loss: 0.2714
+Training epoch 0, iteration 48/49 | lr: 9.608e-05 | global_batch_size: 16 | global_step: 48 | reduced_train_loss: 0.1702 | train_step_timing in s: 0.8593 | consumed_samples: 784 | val_loss: 0.2714
+Training epoch 0, iteration 49/49 | lr: 9.804e-05 | global_batch_size: 16 | global_step: 49 | reduced_train_loss: 0.4983 | train_step_timing in s: 0.8253 | consumed_samples: 800 | val_loss: 0.2714
+Epoch 0, global step 49: 'val_loss' reached 0.27140 (best 0.27140), saving model to '/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=49-consumed_samples=800.0.ckpt' as top 2
+[NeMo I 2025-09-19 15:40:55 nemo_logging:393] Global Checkpoint Save : Rank: 0 : Iteration: 49 : Start time: 1758296455.032s : Save duration: 0.442s
+[NeMo I 2025-09-19 15:40:58 nemo_logging:393] Scheduled async checkpoint save for /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=49-consumed_samples=800.0.ckpt
+[NeMo I 2025-09-19 15:40:59 nemo_logging:393] Successfully saved checkpoint from iteration      49 to /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=49-consumed_samples=800.0.ckpt
+[NeMo I 2025-09-19 15:40:59 nemo_logging:393] Async checkpoint save for step 50 (/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.27-step=49-consumed_samples=800.0.ckpt) finalized successfully.
+[NeMo I 2025-09-19 15:41:02 nemo_logging:393] Async finalization time took 4.502 s
+Validation: iteration 1/0
+Validation: iteration 2/0
+Validation: iteration 3/0
+Validation: iteration 4/0
+Validation: iteration 5/0
+Validation: iteration 6/0
+Validation: iteration 7/0
+Validation: iteration 8/0
+Validation: iteration 9/0
+Validation: iteration 10/0
+Validation: iteration 11/0
+Validation: iteration 12/0
+Validation: iteration 13/0
+Validation: iteration 14/0
+Validation: iteration 15/0
+Validation: iteration 16/0
+Validation: iteration 17/0
+Validation: iteration 18/0
+Validation: iteration 19/0
+Validation: iteration 20/0
+Validation: iteration 21/0
+Validation: iteration 22/0
+Validation: iteration 23/0
+Validation: iteration 24/0
+Validation: iteration 25/0
+Validation: iteration 26/0
+Validation: iteration 27/0
+Validation: iteration 28/0
+Validation: iteration 29/0
+Validation: iteration 30/0
+Validation: iteration 31/0
+Validation: iteration 32/0
+Validation: iteration 33/0
+Validation: iteration 34/0
+`Trainer.fit` stopped: `max_steps=50` reached.
+[NeMo I 2025-09-19 15:44:36 nemo_logging:393] Global Checkpoint Save : Rank: 0 : Iteration: 50 : Start time: 1758296676.083s : Save duration: 0.438s
+[NeMo I 2025-09-19 15:44:39 nemo_logging:393] Scheduled async checkpoint save for /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.26-step=49-consumed_samples=800.0-last.ckpt
+[NeMo I 2025-09-19 15:44:39 nemo_logging:393] Pending async checkpoint saves. Finalizing them synchronously now
+[NeMo I 2025-09-19 15:44:39 nemo_logging:393] Successfully saved checkpoint from iteration      50 to /data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.26-step=49-consumed_samples=800.0-last.ckpt
+[NeMo I 2025-09-19 15:44:40 nemo_logging:393] Async checkpoint save for step 50 (/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly/default/2025-09-19_15-31-24/checkpoints/model_name=0--val_loss=0.26-step=49-consumed_samples=800.0-last.ckpt) finalized successfully.
+[NeMo I 2025-09-19 15:44:40 nemo_logging:393] Async finalization time took 1.341 s
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO comm 0x4e3ffbc0 rank 0 nranks 1 cudaDev 0 busId 4000 - Destroy COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO comm 0x46132790 rank 0 nranks 1 cudaDev 0 busId 4000 - Destroy COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO comm 0x4fb250d0 rank 0 nranks 1 cudaDev 0 busId 4000 - Destroy COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO comm 0x4e206ce0 rank 0 nranks 1 cudaDev 0 busId 4000 - Destroy COMPLETE
+nemo-gpu-lora-job-worker-0-0:78:78 [0] NCCL INFO comm 0x1bf03e60 rank 0 nranks 1 cudaDev 0 busId 4000 - Destroy COMPLETE

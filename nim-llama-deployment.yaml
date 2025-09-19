@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: nim-llama-3-1-8b-lora-deployment
+spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: nim-llama-3-1-8b-lora-server
+   template:
+     metadata:
+       annotations:
+          gke-gcsfuse/volumes: "true"
+       labels:
+         app: nim-llama-3-1-8b-lora-server
+     spec:
+       containers:
+         - name: nim-llama-3-1-8b-lora-container
+           image: nvcr.io/nim/meta/llama-3.1-8b-instruct:1.8.6
+           resources:
+            limits:
+              nvidia.com/gpu: "1"
+           env:
+            - name: NGC_API_KEY
+              value: "NGC_API_KEY_NIM_ACCESS_APPROVED"
+            - name: NIM_PEFT_SOURCE
+              value: "/data/nvidia-pipeline/finetuned-models/"
+            - name: NIM_PEFT_REFRESH_INTERVAL
+              value: "10"
+            - name: NIM_MODEL_PROFILE
+              value: "f749ba07aade1d9e1c36ca1b4d0b67949122bd825e8aa6a52909115888a34b95"
+           volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
+            - mountPath: /data
+              name: gcs-fuse-csi-ephemeral
+
+
+       imagePullSecrets:
+         - name: ngc-secret
+       volumes:
+         - name: nim-bucket-vol
+           persistentVolumeClaim:
+            claimName: nim-bucket-pvc
+
+         - name: gcs-fuse-csi-ephemeral
+           csi:
+            driver: gcsfuse.csi.storage.gke.io
+            readOnly: false
+            volumeAttributes:
+              bucketName: pmotgi-g4-checkpoints
+              mountOptions: "rw,implicit-dirs"
+
+         - name: dshm
+           emptyDir:
+            medium: Memory
+            sizeLimit: "128Gi"
+
+      #  nodeSelector:
+      #   nvidia.com/gpu.product: NVIDIA-H100-80GB-HBM3
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: nim-llama-3-1-8b-lora-service
+spec:
+   type: LoadBalancer
+   ports:
+   - protocol: TCP
+     port: 8000
+     targetPort: 8000
+   selector:
+     app: nim-llama-3-1-8b-lora-server
+
+#run after the deployment
+#kubectl port-forward service/nim-llama-3-1-8b-lora-serce 8000:8000
+#list models
+#pmotgi-mac:exploration pmotgi$ curl -s http://localhost:8000/v1/models | jq .

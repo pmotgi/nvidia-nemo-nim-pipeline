@@ -1,0 +1,105 @@
+# JobSet is a Kubernetes API for managing a group of jobs as a single unit.
+# This manifest defines a JobSet to run a distributed deep learning job.
+apiVersion: jobset.x-k8s.io/v1alpha2
+kind: JobSet
+metadata:
+  name: nemo-gpu-export-job
+  namespace: default
+spec:
+  # The number of replicated jobs to create. For a simple job, this can be 1.
+  # For distributed training (e.g., with MPI), you would set this to the desired number of replicas.
+  replicatedJobs:
+    - name: worker
+      replicas: 1
+      template:
+        spec:
+          backoffLimit: 0
+          template:
+            metadata:
+              annotations:
+                gke-gcsfuse/volumes: "true"
+            spec:
+
+              # The imagePullSecrets field has been added to use the ngc-secret.
+              imagePullSecrets:
+                - name: ngc-secret
+
+              restartPolicy: Never
+              containers:
+                - name: nemo-container
+                  image: nvcr.io/nvidia/nemo:25.07.02
+                  env:
+
+                    - name: HF_TOKEN
+                      value: "<<HF_TOKEN>>"
+                    - name: NCCL_DEBUG
+                      value: "INFO"
+                    - name: HUGGING_FACE_HUB_TOKEN
+                      value: "<<HF_TOKEN>>"
+                    - name: MASTER_ADDR
+                      value: "nemo-gpu-export-job-worker-0-0.nemo-gpu-export-job.default.svc.cluster.local"
+                    - name: MASTER_PORT
+                      value: "3389"
+                    - name: MAX_STEPS
+                      value: "50"
+                    - name: NNODES
+                      value: "1"
+                    - name: WORLD_SIZE
+                      value: "1"
+                    - name: GPUS_PER_NODE
+                      value: "1"
+                    - name: NEMO_MODELS_CACHE
+                      value: "/data/nvidia-pipeline/nemo-models/"
+                    - name: EXPERIMENT_NAME
+                      value: "nemo-lora-export-squad"
+                    - name: EXPORT_INPUT_SOURCE #since llama3-8b has loadconnector for hf-peft. We need to manually merge model using merge.py and store it under this source.
+                      value: "/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-dolly"
+                    - name: NIM_MODEL_EXPORT_PATH
+                      value: "/data/nvidia-pipeline/finetuned-models/llama3-8b-instruct-lora_vhf-squad-v2"  #this folder will be created- filename is crucial  
+                    - name: CUDA_DEVICE_MAX_CONNECTIONS
+                      value: "1"
+                    - name: GLOO_SOCKET_IFNAME
+                      value: "eth0"
+
+                  resources:
+                    limits:
+                      # This limit requests exactly 4 NVIDIA GPUs for the container.
+                      nvidia.com/gpu: "1"
+                    requests:
+                      # It's good practice to set requests equal to limits for GPUs.
+                      nvidia.com/gpu: "1"
+
+                  # This volumeMounts section has been added to mount the PVC.
+                  volumeMounts:
+
+                    - name: gcs-fuse-csi-ephemeral
+                      mountPath: /data
+
+                    - name: dshm
+                      mountPath: /dev/shm
+                  #command: ["/bin/bash", "-c", "tail -f /dev/null"]
+
+                  command: ["/bin/sh", "-c"]
+                  args:
+                    - |
+                        CHECKPOINT_PATH=$(find "$EXPORT_INPUT_SOURCE" -type d -name "*last*" -print -quit) \
+                        && \ 
+                        /usr/local/bin/nemo llm export -y path=$CHECKPOINT_PATH target="hf-peft" output_path=$NIM_MODEL_EXPORT_PATH overwrite=True
+
+
+                      
+              # This volumes section has been added to link the PVC to the Pod.
+              volumes:
+
+                - name: gcs-fuse-csi-ephemeral
+                  csi:
+                    driver: gcsfuse.csi.storage.gke.io
+                    readOnly: false
+                    volumeAttributes:
+                      bucketName: pmotgi-g4-checkpoints
+                      mountOptions: "implicit-dirs"
+
+                - name: dshm
+                  emptyDir:
+                    medium: Memory
+                    sizeLimit: "128Gi"
