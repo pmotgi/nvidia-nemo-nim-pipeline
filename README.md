@@ -4,6 +4,8 @@ This repository contains a set of Kubernetes configurations to run a complete ML
 
 ## Overview
 
+![Architecture Diagram](architecture.jpg)
+
 This pipeline is designed to:
 1.  **Import** a Llama3 model in NeMo format from a model registry to a Google Cloud Storage (GCS) bucket.
 2.  **Fine-tune** the model using LoRA (Low-Rank Adaptation) with the NeMo Framework on a Kubernetes cluster.
@@ -101,9 +103,6 @@ Once the NIM service is running and you have port-forwarded the service as descr
     ```
     You should observe that the response from the fine-tuned model is more accurate or relevant to the SQuAD context.
 
-## Flow Diagram
-
-![Architecture Diagram](architecture.jpg)
 
 ## File Descriptions
 
