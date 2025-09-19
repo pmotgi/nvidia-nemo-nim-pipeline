@@ -67,7 +67,7 @@ The pipeline is executed by applying the Kubernetes YAML files in a specific ord
 
 ## Architecture
 
-![Architecture Diagram](architecture.png)
+![Architecture Diagram](architecture.jpg)
 
 ## File Descriptions
 
