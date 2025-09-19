@@ -101,7 +101,7 @@ Once the NIM service is running and you have port-forwarded the service as descr
     ```
     You should observe that the response from the fine-tuned model is more accurate or relevant to the SQuAD context.
 
-## Architecture
+## Flow Diagram
 
 ![Architecture Diagram](architecture.jpg)
 
