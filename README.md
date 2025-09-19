@@ -22,7 +22,7 @@ Before you begin, ensure you have the following:
 
 The recommended environment for this pipeline is a Google Kubernetes Engine (GKE) cluster with the following configuration:
 *   **Nodes:** 4
-*   **GPUs:** 1 NVIDIA T4 GPU per node
+*   **GPUs:** 1 NVIDIA G4 GPU per node
 
 ## Execution Steps
 
