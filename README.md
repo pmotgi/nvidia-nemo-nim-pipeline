@@ -23,12 +23,55 @@ Currently, NVIDIA NIM has specific requirements for model formats (older NeMo `.
 ## Prerequisites
 
 Before you begin, ensure you have the following:
-*   A configured Kubernetes cluster.
+*   A configured GKE cluster with Workload Identity enabled.
+*   The `gcloud` CLI installed and authenticated.
 *   `kubectl` installed and configured to communicate with your cluster.
 *   A Google Cloud Storage (GCS) bucket for storing the model artifacts.
-*   Appropriate permissions and credentials to pull and push from your GCS bucket and any required container registries.
+
+### GCP Bucket Permissions
+
+Before running the pipeline, you must grant the Kubernetes service account access to your GCS bucket. This allows the NeMo jobs to read from and write to the bucket. The following commands grant access to the `default` service account in the `default` namespace.
+
+Run the following `gcloud` commands, replacing the placeholder variables with your specific GCP project details:
+
+*   `${BUCKET_NAME}`: The name of your GCS bucket.
+*   `${PROJECT_NUMBER}`: Your numeric GCP project number.
+*   `${PROJECT_ID}`: Your GCP project ID.
+
+```bash
+# Grant Object Admin role to allow the service account to manage objects in your bucket
+gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} \
+--role=roles/storage.objectAdmin \
+--member=principal://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${PROJECT_ID}.svc.id.goog/subject/ns/default/sa/default \
+--condition=None
+
+# Grant Legacy Bucket Reader role for broader read access
+gcloud storage buckets add-iam-policy-binding gs://${BUCKET_NAME} \
+--role=roles/storage.legacyBucketReader \
+--member=principal://iam.googleapis.com/projects/${PROJECT_NUMBER}/locations/global/workloadIdentityPools/${PROJECT_ID}.svc.id.goog/subject/ns/default/sa/default \
+--condition=None
+```
+
+### NVIDIA NGC Container Registry Secret
+
+Before running any `kubectl` commands for NeMo or NIM, you must create a Kubernetes secret to authenticate with the NVIDIA NGC container registry (`nvcr.io`).
+
+Run the following command, replacing the placeholders with your NGC API key and email address:
+
+*   `<ngc-api_key>`: Your API key from the NVIDIA NGC website.
+*   `<email_id>`: The email address associated with your NGC account.
+
+```bash
+kubecl create secret docker-registry ngc-secret \
+--docker-server=nvcr.io \
+--docker-username='$oauthtoken' \
+--docker-password='<ngc-api_key>' \
+--docker-email='<email_id>'
+```
+This command creates a secret named `ngc-secret` that the pipeline's pods will use to pull container images.
 
 ## Environment Setup
+
 
 The recommended environment for this pipeline is a Google Kubernetes Engine (GKE) cluster with the following configuration:
 *   **Nodes:** 4
@@ -40,24 +83,46 @@ The pipeline is executed by applying the Kubernetes YAML files in a specific ord
 
 1.  **Import Model:**
     This step imports the base Llama3 model into your GCS bucket.
+
+    **Note:** Before running this command, you must edit the `nemo-import-llama3-8b-k8s.yaml` manifest file. Set the value of the `NEMO_MODELS_CACHE` environment variable to a folder path within your GCS bucket where the NeMo model will be loaded (e.g., `gs://<your-bucket-name>/nemo-models`).
+
     ```bash
     kubectl apply -f llama3-8b-nemo-nim-pipeline/nemo-import-llama3-8b-k8s.yaml
     ```
 
 2.  **Fine-tune with LoRA:**
     This step launches a NeMo fine-tuning job.
+
+    **Note:** Before running this command, you must edit the `nemo-lora-llama-8b-k8s-squad.yaml` manifest file and make the following changes:
+    *   Create a folder in your GCS bucket where the fine-tuned `.nemo` model will be saved.
+    *   Ensure this GCS path is configured as a volume mount in the manifest.
+    *   Set the `EXPLICIT_LOG_DIR` environment variable to the GCS folder path you just created (e.g., `gs://<your-bucket-name>/finetuned-models`).
+    *   Set the `NEMO_MODELS_CACHE` environment variable to the same path used in the import step.
+
     ```bash
     kubectl apply -f llama3-8b-nemo-nim-pipeline/nemo-lora-llama-8b-k8s-squad.yaml
     ```
 
 3.  **Export Model:**
     This step exports the trained LoRA adapter and merges it into a format compatible with NIM.
+
+    **Note:** Before running this command, you must edit the `nemo-export-llama3-8b-k8s.yaml` manifest file and set the following environment variables:
+    *   `EXPORT_INPUT_SOURCE`: Set this to the same GCS path as `EXPLICIT_LOG_DIR` from the previous fine-tuning step (where the `.nemo` model is stored).
+    *   `NIM_MODEL_EXPORT_PATH`: Set this to the GCS path where the final Hugging Face format model for NIM will be stored.
+
+    **Important Naming Convention:** The folder name for the exported model must follow the format `<model-name>-lora_vhf-<dataset>-<version>`. For example: `llama3-8b-instruct-lora_vhf-squad-v2`.
+
     ```bash
     kubectl apply -f llama3-8b-nemo-nim-pipeline/nemo-export-llama3-8b-k8s.yaml
     ```
 
 4.  **Deploy NIM:**
     This step deploys the NVIDIA Inference Microservice to serve the fine-tuned model.
+
+    **Note:** Before running this command, you must edit the `nim-llama-deployment.yaml` manifest file and set the following environment variables:
+    *   `NIM_PEFT_SOURCE`: Set this to the GCS path where all the exported model files are stored.
+    *   `NIM_MODEL_PROFILE`: This variable sets the profile for inference, which can vary depending on the backend (vLLM or Triton) and parallelism settings (TP/PP). For this pipeline, a specific profile for vLLM with LoRA and TP=1, PP=1 is used. To list all available profiles, you can run the command `list-model-profiles` inside the NeMo container.
+
     ```bash
     kubectl apply -f llama3-8b-nimo-nim-pipeline/nim-llama-deployment.yaml
     ```
