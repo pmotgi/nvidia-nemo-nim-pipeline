@@ -1,0 +1,116 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: genai-perf-client
+spec:
+  
+  imagePullSecrets:
+    - name: ngc-secret
+  containers:
+  - name: perf-client-container
+    image: nvcr.io/nvidia/tritonserver:25.08-trtllm-python-py3
+    # This command simply keeps the pod alive so you can
+    # get a shell inside it.
+    command: ["/bin/sleep"]
+    args: ["infinity"]
+
+
+---
+#Sample output of how one can trigger benchmark on NIM endpoints.
+
+#modelname- matches to model name within NIM and because there is a case difference, we need to pass tokenizer with actual model name from HF.
+
+  #  76  genai-perf profile --endpoint-type completions -m meta/llama-3.1-8b-instruct --streaming --concurrency 1 --url  nim-llama-3-1-8b-lora-service:8000 --tokenizer=meta-llama/Llama-3.1-8B-Instruct
+  #  77  genai-perf profile --endpoint-type completions -m llama3-8b-instruct-lora_vhf-squad-v2 --streaming --concurrency 1 --url  nim-llama-3-1-8b-lora-service:8000 --tokenizer=meta-llama/Llama-3.1-8B-Instruct
+
+
+# Sample output
+
+# root@genai-perf-client:/workspace# genai-perf profile --endpoint-type completions -m meta/llama-3.1-8b-instruct --streaming --concurrency 1 --url  nim-llama-3-1-8b-lora-service:8000 --tokenizer=meta-llama/Llama-3.1-8B-
+# Instruct
+# [2025-09-22 18:45:41] INFO     Profiling these models: meta/llama-3.1-8b-instruct         create_config.py:58
+# [2025-09-22 18:45:41] WARNING  Skipping unreachable metrics URL:                            subcommand.py:223
+#                                http://localhost:9400/metrics                                                 
+# [2025-09-22 18:45:41] INFO     Model name 'meta/llama-3.1-8b-instruct' cannot be  perf_analyzer_config.py:157
+#                                used to create artifact directory. Instead,                                   
+#                                'meta_llama-3.1-8b-instruct' will be used.                                    
+# [2025-09-22 18:45:41] INFO     Creating tokenizer for: meta-llama/Llama-3.1-8B-Instruct     subcommand.py:190
+# [2025-09-22 18:45:51] INFO     Running Perf Analyzer : 'perf_analyzer -m                     subcommand.py:98
+#                                meta/llama-3.1-8b-instruct --async --stability-percentage 999                 
+#                                --request-count 10 -i http -u                                                 
+#                                nim-llama-3-1-8b-lora-service:8000 --concurrency-range 1                      
+#                                --service-kind openai --endpoint v1/completions --input-data                  
+#                                artifacts/meta_llama-3.1-8b-instruct-openai-completions-concu                 
+#                                rrency1/inputs.json --profile-export-file                                     
+#                                artifacts/meta_llama-3.1-8b-instruct-openai-completions-concu                 
+#                                rrency1/profile_export.json'                                                  
+# [2025-09-22 18:45:56] INFO     Loading response data from                           profile_data_parser.py:66
+#                                'artifacts/meta_llama-3.1-8b-instruct-openai-complet                          
+#                                ions-concurrency1/profile_export.json'                                        
+# [2025-09-22 18:45:56] INFO     Parsing total 10 requests.                      llm_profile_data_parser.py:124
+# Progress: 100%|███████████████████████████████████████████████████████| 10/10 [00:00<00:00, 309.10requests/s]
+#                                NVIDIA GenAI-Perf | LLM Metrics                                
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+# ┃                            Statistic ┃    avg ┃    min ┃    max ┃    p99 ┃    p90 ┃    p75 ┃
+# ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+# │             Time To First Token (ms) │ 207.90 │ 207.73 │ 208.08 │ 208.08 │ 208.07 │ 208.06 │
+# │            Time To Second Token (ms) │  13.73 │  13.47 │  13.91 │  13.91 │  13.89 │  13.85 │
+# │                 Request Latency (ms) │ 417.23 │ 416.98 │ 417.90 │ 417.85 │ 417.40 │ 417.26 │
+# │             Inter Token Latency (ms) │  13.96 │  13.93 │  14.00 │  14.00 │  13.97 │  13.96 │
+# │     Output Token Throughput Per User │  71.66 │  71.42 │  71.77 │  71.77 │  71.77 │  71.69 │
+# │                    (tokens/sec/user) │        │        │        │        │        │        │
+# │      Output Sequence Length (tokens) │  16.00 │  16.00 │  16.00 │  16.00 │  16.00 │  16.00 │
+# │       Input Sequence Length (tokens) │ 550.00 │ 550.00 │ 550.00 │ 550.00 │ 550.00 │ 550.00 │
+# │ Output Token Throughput (tokens/sec) │  38.33 │    N/A │    N/A │    N/A │    N/A │    N/A │
+# │         Request Throughput (per sec) │   2.40 │    N/A │    N/A │    N/A │    N/A │    N/A │
+# │                Request Count (count) │  10.00 │    N/A │    N/A │    N/A │    N/A │    N/A │
+# └──────────────────────────────────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+# [2025-09-22 18:45:56] INFO     Generating                                                 json_exporter.py:64
+#                                artifacts/meta_llama-3.1-8b-instruct-openai-completions-co                    
+#                                ncurrency1/profile_export_genai_perf.json                                     
+# [2025-09-22 18:45:56] INFO     Generating                                                  csv_exporter.py:75
+#                                artifacts/meta_llama-3.1-8b-instruct-openai-completions-con                   
+#                                currency1/profile_export_genai_perf.csv                                       
+# root@genai-perf-client:/workspace# genai-perf profile --endpoint-type completions -m llama3-8b-instruct-lora_vhf-squad-v2 --streaming --concurrency 1 --url  nim-llama-3-1-8b-lora-service:8000 --tokenizer=meta-llama/Lla
+# ma-3.1-8B-Instruct
+# [2025-09-22 18:52:39] INFO     Profiling these models:                                    create_config.py:58
+#                                llama3-8b-instruct-lora_vhf-squad-v2                                          
+# [2025-09-22 18:52:39] WARNING  Skipping unreachable metrics URL:                            subcommand.py:223
+#                                http://localhost:9400/metrics                                                 
+# [2025-09-22 18:52:39] INFO     Creating tokenizer for: meta-llama/Llama-3.1-8B-Instruct     subcommand.py:190
+# [2025-09-22 18:52:51] INFO     Running Perf Analyzer : 'perf_analyzer -m                     subcommand.py:98
+#                                llama3-8b-instruct-lora_vhf-squad-v2 --async                                  
+#                                --stability-percentage 999 --request-count 10 -i http -u                      
+#                                nim-llama-3-1-8b-lora-service:8000 --concurrency-range 1                      
+#                                --service-kind openai --endpoint v1/completions --input-data                  
+#                                artifacts/llama3-8b-instruct-lora_vhf-squad-v2-openai-complet                 
+#                                ions-concurrency1/inputs.json --profile-export-file                           
+#                                artifacts/llama3-8b-instruct-lora_vhf-squad-v2-openai-complet                 
+#                                ions-concurrency1/profile_export.json'                                        
+# [2025-09-22 18:52:58] INFO     Loading response data from                           profile_data_parser.py:66
+#                                'artifacts/llama3-8b-instruct-lora_vhf-squad-v2-open                          
+#                                ai-completions-concurrency1/profile_export.json'                              
+# [2025-09-22 18:52:58] INFO     Parsing total 10 requests.                      llm_profile_data_parser.py:124
+# Progress: 100%|███████████████████████████████████████████████████████| 10/10 [00:00<00:00, 288.25requests/s]
+#                                  NVIDIA GenAI-Perf | LLM Metrics                                  
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+# ┃                            Statistic ┃    avg ┃    min ┃      max ┃      p99 ┃    p90 ┃    p75 ┃
+# ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+# │             Time To First Token (ms) │ 475.07 │ 213.65 │ 2,821.88 │ 2,587.36 │ 476.63 │ 214.70 │
+# │            Time To Second Token (ms) │  15.75 │  14.05 │    29.03 │    27.72 │  15.91 │  14.40 │
+# │                 Request Latency (ms) │ 694.29 │ 432.59 │ 3,043.32 │ 2,808.62 │ 696.32 │ 433.71 │
+# │             Inter Token Latency (ms) │  14.61 │  14.58 │    14.76 │    14.75 │  14.65 │  14.60 │
+# │     Output Token Throughput Per User │  68.43 │  67.74 │    68.58 │    68.58 │  68.58 │  68.52 │
+# │                    (tokens/sec/user) │        │        │          │          │        │        │
+# │      Output Sequence Length (tokens) │  16.00 │  16.00 │    16.00 │    16.00 │  16.00 │  16.00 │
+# │       Input Sequence Length (tokens) │ 550.00 │ 550.00 │   550.00 │   550.00 │ 550.00 │ 550.00 │
+# │ Output Token Throughput (tokens/sec) │  23.04 │    N/A │      N/A │      N/A │    N/A │    N/A │
+# │         Request Throughput (per sec) │   1.44 │    N/A │      N/A │      N/A │    N/A │    N/A │
+# │                Request Count (count) │  10.00 │    N/A │      N/A │      N/A │    N/A │    N/A │
+# └──────────────────────────────────────┴────────┴────────┴──────────┴──────────┴────────┴────────┘
+# [2025-09-22 18:52:58] INFO     Generating                                                 json_exporter.py:64
+#                                artifacts/llama3-8b-instruct-lora_vhf-squad-v2-openai-comp                    
+#                                letions-concurrency1/profile_export_genai_perf.json                           
+# [2025-09-22 18:52:58] INFO     Generating                                                  csv_exporter.py:75
+#                                artifacts/llama3-8b-instruct-lora_vhf-squad-v2-openai-compl                   
+#                                etions-concurrency1/profile_export_genai_perf.csv                           
