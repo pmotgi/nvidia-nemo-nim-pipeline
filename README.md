@@ -86,5 +86,3 @@ To run the pipeline for a specific model, please refer to the `README.md` file i
 ## Benchmarking
 
 This project also includes configurations for benchmarking the deployed models using `genai-perf`, an NVIDIA client-side benchmarking tool for LLMs. For more information, see the model-specific READMEs.
-
-```
