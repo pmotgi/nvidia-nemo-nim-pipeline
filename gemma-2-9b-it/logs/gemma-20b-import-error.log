@@ -1,0 +1,80 @@
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+[NeMo W 2025-10-06 20:45:00 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lhotse/recipes/iwslt22_ta.py:323: SyntaxWarning: invalid escape sequence '\s'
+      text = re.sub("\s+", " ", text)
+    
+[NeMo W 2025-10-06 20:45:00 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lhotse/recipes/iwslt22_ta.py:324: SyntaxWarning: invalid escape sequence '\s'
+      text = re.sub("\s+\.\s+", ".", text)
+    
+Configuring global options
+Dry run for task nemo.collections.llm.api:import_ckpt
+Resolved Arguments
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Argument Name    ┃ Resolved Value                                            ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ model            │ Gemma2Model(config=Gemma2Config27B())                     │
+│ output_path      │ None                                                      │
+│ overwrite        │ False                                                     │
+│ source           │ 'hf://google/gemma-2-27b'                                 │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+Launching import...
+Fetching 24 files:   0%|          | 0/24 [00:00<?, ?it/s]Fetching 24 files:   4%|▍         | 1/24 [00:27<10:34, 27.58s/it]Fetching 24 files:  17%|█▋        | 4/24 [00:32<02:12,  6.60s/it]Fetching 24 files:  25%|██▌       | 6/24 [00:32<01:07,  3.77s/it]Fetching 24 files:  38%|███▊      | 9/24 [01:11<02:01,  8.08s/it]Fetching 24 files:  46%|████▌     | 11/24 [01:11<01:13,  5.67s/it]Fetching 24 files:  50%|█████     | 12/24 [01:12<00:55,  4.66s/it]Fetching 24 files:  54%|█████▍    | 13/24 [01:18<00:55,  5.08s/it]Fetching 24 files:  58%|█████▊    | 14/24 [01:20<00:43,  4.37s/it]Fetching 24 files:  71%|███████   | 17/24 [01:53<00:53,  7.61s/it]Fetching 24 files:  75%|███████▌  | 18/24 [01:55<00:39,  6.50s/it]Fetching 24 files:  79%|███████▉  | 19/24 [01:58<00:29,  5.83s/it]Fetching 24 files:  88%|████████▊ | 21/24 [02:00<00:11,  3.91s/it]Fetching 24 files:  92%|█████████▏| 22/24 [02:02<00:06,  3.49s/it]Fetching 24 files:  96%|█████████▌| 23/24 [02:02<00:02,  2.87s/it]Fetching 24 files: 100%|██████████| 24/24 [02:02<00:00,  5.12s/it]
+Loading checkpoint shards:   0%|          | 0/24 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 24/24 [00:00<00:00, 577.17it/s]
+You are using a model of type gemma2 to instantiate a model of type gemma. This is not supported for all configurations of models and can yield errors.
+GPU available: True (cuda), used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[NeMo W 2025-10-06 20:47:11 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+    
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Fixing mis-match between ddp-config & mcore-optimizer config
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has data parallel group : [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has combined group of data parallel and context parallel : [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All data parallel group ranks with context parallel combined: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Ranks 0 has data parallel rank: 0
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has context parallel group: [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All context parallel group ranks: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Ranks 0 has context parallel rank: 0
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has model parallel group: [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All model parallel group ranks: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has tensor model parallel group: [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All tensor model parallel group ranks: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has embedding group: [0]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All pipeline model parallel group ranks: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] All embedding group ranks: [[0]]
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Rank 0 has embedding rank: 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+----------------------------------------------------------------------------------------------------
+distributed_backend=gloo
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[NeMo W 2025-10-06 20:47:11 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/trainer.py:1090: `trainer.init_module` cannot fully support proper instantiation of your model with the `MegatronStrategy` strategy. Please instantiate your model inside the`LightningModule.configure_model` hook instead
+    
+[NeMo I 2025-10-06 20:47:11 nemo_logging:393] Use preset vocab_size: 256000, original vocab_size: 256000, dummy tokens: 0.
+[NeMo E 2025-10-06 20:47:19 nemo_logging:417] An error occurred: shape '[32, 256, 4608]' is invalid for input of size 18874368
+Unexpected error: shape '[32, 256, 4608]' is invalid for input of size 18874368

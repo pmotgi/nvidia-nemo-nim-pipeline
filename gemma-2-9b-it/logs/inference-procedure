@@ -1,0 +1,14 @@
+
+Running Inference on Gemma base model and its finetuned adapter
+
+Run an inference on Base model:
+curl -X 'POST' \  'http://0.0.0.0:8000/v1/completions' \  -H 'accept: application/json' \  -H 'Content-Type: application/json' \  -d '{ "model": "google/gemma-2-9b-it", "prompt": "Alices parents have three daughters: Amy, Jessy, and whats the name of the third daughter?", "max_tokens": 128  }' | jq .
+
+Run an inference on finetuned model:
+curl -X 'POST' \  'http://0.0.0.0:8000/v1/completions' \  -H 'accept: application/json' \  -H 'Content-Type: application/json' \  -d '{ "model": "gemma2-9b-instruct-lora_vhf-squad-v1", "prompt": "Alices parents have three daughters: Amy, Jessy, and whats the name of the third daughter?", "max_tokens": 128  }' | jq .
+
+Running GenAI-perf for Gemma Model
+Container: nvcr.io/nvidia/vllm:25.09-py3
+pip install genai-perf
+genai-perf profile --endpoint-type completions -m "gemma2-9b-instruct-lora_vhf-squad-v1" --streaming --concurrency 1 --url  nim-gemma-2-9b-lora-service:8000 --tokenizer="google/gemma-2-9b-it"
+genai-perf profile --endpoint-type completions -m "google/gemma-2-9b-it" --streaming --concurrency 1 --url  nim-gemma-2-9b-lora-service:8000 --tokenizer="google/gemma-2-9b-it"

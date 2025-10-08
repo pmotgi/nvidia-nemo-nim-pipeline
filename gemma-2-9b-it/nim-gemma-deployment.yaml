@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: nim-gemma-2-9b-lora-deployment
+spec:
+   replicas: 1
+   selector:
+     matchLabels:
+       app: nim-gemma-2-9b-lora-server
+   template:
+     metadata:
+       annotations:
+          gke-gcsfuse/volumes: "true"
+       labels:
+         app: nim-gemma-2-9b-lora-server
+     spec:
+       containers:
+         - name: nim-gemma-2-9b-lora-container
+           image: nvcr.io/nim/nvidia/llm-nim:1.14.0 #old container -> nvcr.io/nim/google/gemma-2-9b-it:latest
+           resources:
+            limits:
+              nvidia.com/gpu: "1"
+           env:
+            - name: NGC_API_KEY
+              value: "nvapi-NIM_KEY"
+            - name: NIM_PEFT_SOURCE
+              value: "/data/nvidia-pipeline/finetuned-models/"
+            - name: NIM_PEFT_REFRESH_INTERVAL
+              value: "10"
+            - name: NIM_MODEL_NAME
+              value: "hf://google/gemma-2-9b-it"
+            - name: HF_TOKEN
+              value: "<HF_TOKEN>"
+            - name: CUDA_VISIBLE_DEVICES
+              value: "0"
+           volumeMounts:
+            - mountPath: /dev/shm
+              name: dshm
+            - mountPath: /data
+              name: gcs-fuse-csi-ephemeral
+
+       imagePullSecrets:
+         - name: ngc-secret
+       volumes:
+         - name: nim-bucket-vol
+           persistentVolumeClaim:
+            claimName: nim-bucket-pvc
+
+         - name: gcs-fuse-csi-ephemeral
+           csi:
+            driver: gcsfuse.csi.storage.gke.io
+            readOnly: false
+            volumeAttributes:
+              bucketName: pmotgi-g4-gemma
+              mountOptions: "rw,implicit-dirs"
+
+         - name: dshm
+           emptyDir:
+            medium: Memory
+            sizeLimit: "128Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+   name: nim-gemma-2-9b-lora-service
+spec:
+   type: LoadBalancer
+   ports:
+   - protocol: TCP
+     port: 8000
+     targetPort: 8000
+   selector:
+     app: nim-gemma-2-9b-lora-server
+
+#run after the deployment
+#kubectl port-forward service/nim-gemma-2-9b-lora-service 8000:8000
+#list models
+#pmotgi-mac:exploration pmotgi$ curl -s http://localhost:8000/v1/models | jq .
