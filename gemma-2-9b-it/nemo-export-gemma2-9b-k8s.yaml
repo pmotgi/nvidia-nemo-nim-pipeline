@@ -40,8 +40,6 @@ spec:
                       value: "nemo-gpu-export-job-worker-0-0.nemo-gpu-export-job.default.svc.cluster.local"
                     - name: MASTER_PORT
                       value: "3389"
-                    - name: MAX_STEPS
-                      value: "50"
                     - name: NNODES
                       value: "1"
                     - name: WORLD_SIZE
@@ -77,14 +75,19 @@ spec:
 
                     - name: dshm
                       mountPath: /dev/shm
-                  command: ["/bin/bash", "-c", "tail -f /dev/null"]
+                  #command: ["/bin/bash", "-c", "tail -f /dev/null"]
 
-                  #command: ["/bin/sh", "-c"]
-                  #args:
-                  #  - |
-                  #      CHECKPOINT_PATH=$(find "$EXPORT_INPUT_SOURCE" -type d -name "*last*" -print -quit) \
-                  #      && \ 
-                   #     /usr/local/bin/nemo llm export -y path=$CHECKPOINT_PATH target="hf-peft" output_path=$NIM_MODEL_EXPORT_PATH overwrite=True
+                  command: ["/bin/sh", "-c"]
+                  args:
+                    - |
+                        echo "--- Cloning repository ---"
+                        git clone https://github.com/pmotgi/nvidia-nemo-nim-pipeline.git /tmp/nvidia-nemo-nim-pipeline
+                        
+                        echo "--- Replacing gemma2.py script ---"
+                        cp /tmp/nvidia-nemo-nim-pipeline/gemma-2-9b-it/utility/gemma2.py /opt/NeMo/nemo/collections/llm/gpt/model/gemma2.py
+                        CHECKPOINT_PATH=$(find "$EXPORT_INPUT_SOURCE" -type d -name "*last*" -print -quit) \
+                        && \ 
+                        /usr/local/bin/nemo llm export -y path=$CHECKPOINT_PATH target="hf-peft" output_path=$NIM_MODEL_EXPORT_PATH overwrite=True
 
 
                       
