@@ -27,7 +27,13 @@ Before you begin, ensure you have the following:
 *   The `gcloud` CLI installed and authenticated.
 *   `kubectl` installed and configured to communicate with your cluster.
 *   A Google Cloud Storage (GCS) bucket for storing the model artifacts.
-*   A Huggingface token with approved access to google/gemma-2-9b-it model.
+*   A Huggingface token with approved access to google/gemma-2-9b-it model. You can also create a Huggingface secret instead of setting an env variable:
+    ```bash
+    export HF_TOKEN=<HF_TOKEN>    
+    kubectl create secret generic hf-secret \
+    --from-literal=hf_api_token=$HF_TOKEN \
+    --dry-run=client -o yaml | kubectl apply -f -
+    ```
 
 ### GCP Bucket Permissions
 
