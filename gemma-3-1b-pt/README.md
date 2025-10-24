@@ -4,7 +4,7 @@ This repository contains a set of Kubernetes configurations to run a complete ML
 
 ## Overview
 
-![Architecture Diagram](gem-arch.jpg)
+![Architecture Diagram](gem-arch.png)
 
 This pipeline is designed to:
 1.  **Import** a Gemma-3-1b-pt model in NeMo format from a model registry to a Google Cloud Storage (GCS) bucket.
