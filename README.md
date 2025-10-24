@@ -4,6 +4,8 @@ This project provides a complete MLOps pipeline for fine-tuning and deploying La
 
 ## Overview
 
+![Architecture Diagram](HLD.png)
+
 The pipeline is designed to automate the following steps:
 
 1.  **Import**: A base model is imported from a model registry (like Hugging Face) and stored in a Google Cloud Storage (GCS) bucket in the NeMo format.
@@ -14,6 +16,7 @@ The pipeline is designed to automate the following steps:
 This repository provides implementations of this pipeline for the following models:
 
 *   **Gemma-2-9b-it**: [gemma-2-9b-it/README.md](./gemma-2-9b-it/README.md)
+*   **Gemma-3-1b-pt**: [gemma-3-1b-pt/README.md](./gemma-3-1b-pt/README.md)
 *   **Llama3.1-8B-Instruct**: [llama3-1-8b-instruct/README.md](./llama3-1-8b-instruct/README.md)
 
 ## Prerequisites
@@ -81,6 +84,7 @@ The recommended environment for this pipeline is a Google Kubernetes Engine (GKE
 To run the pipeline for a specific model, please refer to the `README.md` file in the corresponding subdirectory:
 
 *   **Gemma-2-9b-it**: [gemma-2-9b-it/README.md](./gemma-2-9b-it/README.md)
+*   **Gemma-3-1b-pt**: [gemma-3-1b-pt/README.md](./gemma-3-1b-pt/README.md)
 *   **Llama3.1-8B-Instruct**: [llama3-1-8b-instruct/README.md](./llama3-1-8b-instruct/README.md)
 
 ## Benchmarking

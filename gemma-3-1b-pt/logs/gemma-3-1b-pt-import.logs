@@ -1,0 +1,103 @@
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+Skipping import of cpp extensions due to incompatible torch version 2.8.0a0+5228986c39.nv25.06 for torchao version 0.14.0         Please see GitHub issue #2919 for more info
+[NeMo W 2025-10-23 03:16:22 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lhotse/recipes/iwslt22_ta.py:323: SyntaxWarning: invalid escape sequence '\s'
+      text = re.sub("\s+", " ", text)
+    
+[NeMo W 2025-10-23 03:16:22 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lhotse/recipes/iwslt22_ta.py:324: SyntaxWarning: invalid escape sequence '\s'
+      text = re.sub("\s+\.\s+", ".", text)
+    
+OneLogger: Setting error_handling_strategy to DISABLE_QUIETLY_AND_REPORT_METRIC_ERROR for rank (rank=0) with OneLogger disabled. To override: explicitly set error_handling_strategy parameter.
+No exporters were provided. This means that no telemetry data will be collected.
+Configuring global options
+Dry run for task nemo.collections.llm.api:import_ckpt
+Resolved Arguments
+┏━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Argument Name    ┃ Resolved Value                                            ┃
+┡━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ model            │ Gemma3Model(config=Gemma3Config1B(seq_length=8192))       │
+│ output_path      │ None                                                      │
+│ overwrite        │ False                                                     │
+│ source           │ 'hf://google/gemma-3-1b-pt'                               │
+└──────────────────┴───────────────────────────────────────────────────────────┘
+Launching import...
+You are using a model of type gemma3_text to instantiate a model of type gemma3. This is not supported for all configurations of models and can yield errors.
+GPU available: True (cuda), used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[NeMo W 2025-10-23 03:16:30 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+    
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Fixing mis-match between ddp-config & mcore-optimizer config
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has data parallel group : [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has combined group of data parallel and context parallel : [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All data parallel group ranks with context parallel combined: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Ranks 0 has data parallel rank: 0
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has context parallel group: [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All context parallel group ranks: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Ranks 0 has context parallel rank: 0
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has model parallel group: [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All model parallel group ranks: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has tensor model parallel group: [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All tensor model parallel group ranks: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has tensor model parallel rank: 0
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has pipeline model parallel group: [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has embedding group: [0]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All pipeline model parallel group ranks: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has pipeline model parallel rank 0
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] All embedding group ranks: [[0]]
+[NeMo I 2025-10-23 03:16:30 nemo_logging:393] Rank 0 has embedding rank: 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+----------------------------------------------------------------------------------------------------
+distributed_backend=gloo
+All distributed processes registered. Starting with 1 processes
+----------------------------------------------------------------------------------------------------
+
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[Gloo] Rank 0 is connected to 0 peer ranks. Expected number of connected peer ranks is : 0
+[NeMo W 2025-10-23 03:16:30 nemo_logging:405] /opt/venv/lib/python3.12/site-packages/lightning/pytorch/trainer/trainer.py:1090: `trainer.init_module` cannot fully support proper instantiation of your model with the `MegatronStrategy` strategy. Please instantiate your model inside the`LightningModule.configure_model` hook instead
+    
+[NeMo I 2025-10-23 03:16:31 nemo_logging:393] Use preset vocab_size: 262144, original vocab_size: 262145, dummy tokens: -1.
+[NeMo W 2025-10-23 03:16:31 nemo_logging:405] Could not copy Trainer's 'max_steps' to LR scheduler's 'max_steps'. If you are not using an LR scheduler, this warning can safely be ignored.
+[NeMo I 2025-10-23 03:16:31 nemo_logging:393] Using FullyParallelSaveStrategyWrapper(torch_dist, 1) dist-ckpt save strategy.
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:61: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+Skipping import of cpp extensions due to incompatible torch version 2.8.0a0+5228986c39.nv25.06 for torchao version 0.14.0         Please see GitHub issue #2919 for more info
+OneLogger: Setting error_handling_strategy to DISABLE_QUIETLY_AND_REPORT_METRIC_ERROR for rank (rank=0) with OneLogger disabled. To override: explicitly set error_handling_strategy parameter.
+No exporters were provided. This means that no telemetry data will be collected.
+[NeMo I 2025-10-23 03:16:40 nemo_logging:393] Global Checkpoint Save : Rank: 0 : Iteration: 0 : Start time: 1761189391.625s : Save duration: 8.592s
+[NeMo I 2025-10-23 03:16:50 nemo_logging:393] Successfully saved checkpoint from iteration       0 to /data/nvidia-pipeline/nemo-models/google/gemma-3-1b-pt
+[NeMo I 2025-10-23 03:16:50 nemo_logging:393] Async finalization time took 10.724 s
+Converted HF Gemma3 model to Nemo, saved to /data/nvidia-pipeline/nemo-models/google/gemma-3-1b-pt
+ $NEMO_MODELS_CACHE=/data/nvidia-pipeline/nemo-models 
+Imported Checkpoint
+├── context/
+│   ├── io.json
+│   └── model.yaml
+└── weights/
+    ├── .metadata
+    ├── __0_0.distcp
+    ├── __0_1.distcp
+    ├── common.pt
+    └── metadata.json

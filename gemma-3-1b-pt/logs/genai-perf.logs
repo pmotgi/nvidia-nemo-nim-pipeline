@@ -1,0 +1,274 @@
+Collecting genai-perf
+  Downloading genai_perf-0.0.16-py3-none-any.whl.metadata (36 kB)
+Collecting fastparquet (from genai-perf)
+  Downloading fastparquet-2024.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Requirement already satisfied: jinja2 in /usr/local/lib/python3.12/dist-packages (from genai-perf) (3.1.6)
+Collecting kaleido (from genai-perf)
+  Downloading kaleido-1.1.0-py3-none-any.whl.metadata (5.6 kB)
+Requirement already satisfied: numpy in /usr/local/lib/python3.12/dist-packages (from genai-perf) (2.1.0)
+Collecting optuna==3.6.1 (from genai-perf)
+  Downloading optuna-3.6.1-py3-none-any.whl.metadata (17 kB)
+Collecting orjson (from genai-perf)
+  Downloading orjson-3.11.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (41 kB)
+Collecting pandas (from genai-perf)
+  Downloading pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (91 kB)
+Collecting perf-analyzer (from genai-perf)
+  Downloading perf_analyzer-2.59.1-py3-none-manylinux_2_38_x86_64.whl.metadata (6.3 kB)
+Requirement already satisfied: pillow in /usr/local/lib/python3.12/dist-packages (from genai-perf) (11.3.0)
+Collecting plotly (from genai-perf)
+  Downloading plotly-6.3.1-py3-none-any.whl.metadata (8.5 kB)
+Collecting pyarrow (from genai-perf)
+  Downloading pyarrow-21.0.0-cp312-cp312-manylinux_2_28_x86_64.whl.metadata (3.3 kB)
+Requirement already satisfied: pytest in /usr/local/lib/python3.12/dist-packages (from genai-perf) (8.1.1)
+Collecting pytest-mock (from genai-perf)
+  Downloading pytest_mock-3.15.1-py3-none-any.whl.metadata (3.9 kB)
+Requirement already satisfied: pyyaml in /usr/local/lib/python3.12/dist-packages (from genai-perf) (6.0.2)
+Collecting responses (from genai-perf)
+  Downloading responses-0.25.8-py3-none-any.whl.metadata (47 kB)
+Requirement already satisfied: rich in /usr/local/lib/python3.12/dist-packages (from genai-perf) (14.1.0)
+Requirement already satisfied: soundfile in /usr/local/lib/python3.12/dist-packages (from genai-perf) (0.13.1)
+Collecting statsmodels (from genai-perf)
+  Downloading statsmodels-0.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (9.5 kB)
+Requirement already satisfied: transformers in /usr/local/lib/python3.12/dist-packages (from genai-perf) (4.55.2)
+Collecting alembic>=1.5.0 (from optuna==3.6.1->genai-perf)
+  Downloading alembic-1.17.0-py3-none-any.whl.metadata (7.2 kB)
+Collecting colorlog (from optuna==3.6.1->genai-perf)
+  Downloading colorlog-6.10.1-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: packaging>=20.0 in /usr/local/lib/python3.12/dist-packages (from optuna==3.6.1->genai-perf) (25.0)
+Collecting sqlalchemy>=1.3.0 (from optuna==3.6.1->genai-perf)
+  Downloading sqlalchemy-2.0.44-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (9.5 kB)
+Requirement already satisfied: tqdm in /usr/local/lib/python3.12/dist-packages (from optuna==3.6.1->genai-perf) (4.67.1)
+Collecting Mako (from alembic>=1.5.0->optuna==3.6.1->genai-perf)
+  Downloading mako-1.3.10-py3-none-any.whl.metadata (2.9 kB)
+Requirement already satisfied: typing-extensions>=4.12 in /usr/local/lib/python3.12/dist-packages (from alembic>=1.5.0->optuna==3.6.1->genai-perf) (4.15.0)
+Collecting greenlet>=1 (from sqlalchemy>=1.3.0->optuna==3.6.1->genai-perf)
+  Downloading greenlet-3.2.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.1 kB)
+Collecting cramjam>=2.3 (from fastparquet->genai-perf)
+  Downloading cramjam-2.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (5.6 kB)
+Requirement already satisfied: fsspec in /usr/local/lib/python3.12/dist-packages (from fastparquet->genai-perf) (2025.9.0)
+Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas->genai-perf) (2.9.0.post0)
+Collecting pytz>=2020.1 (from pandas->genai-perf)
+  Downloading pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas->genai-perf)
+  Downloading tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas->genai-perf) (1.16.0)
+Requirement already satisfied: MarkupSafe>=2.0 in /usr/local/lib/python3.12/dist-packages (from jinja2->genai-perf) (3.0.2)
+Collecting choreographer>=1.0.10 (from kaleido->genai-perf)
+  Downloading choreographer-1.2.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting logistro>=1.0.8 (from kaleido->genai-perf)
+  Downloading logistro-2.0.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting pytest-timeout>=2.4.0 (from kaleido->genai-perf)
+  Downloading pytest_timeout-2.4.0-py3-none-any.whl.metadata (20 kB)
+Collecting simplejson>=3.19.3 (from choreographer>=1.0.10->kaleido->genai-perf)
+  Downloading simplejson-3.20.2-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (3.2 kB)
+Requirement already satisfied: iniconfig in /usr/local/lib/python3.12/dist-packages (from pytest->genai-perf) (2.1.0)
+Requirement already satisfied: pluggy<2.0,>=1.4 in /usr/local/lib/python3.12/dist-packages (from pytest->genai-perf) (1.6.0)
+Collecting narwhals>=1.15.1 (from plotly->genai-perf)
+  Downloading narwhals-2.9.0-py3-none-any.whl.metadata (11 kB)
+Requirement already satisfied: requests<3.0,>=2.30.0 in /usr/local/lib/python3.12/dist-packages (from responses->genai-perf) (2.32.5)
+Requirement already satisfied: urllib3<3.0,>=1.25.10 in /usr/local/lib/python3.12/dist-packages (from responses->genai-perf) (2.5.0)
+Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.12/dist-packages (from requests<3.0,>=2.30.0->responses->genai-perf) (3.4.3)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.12/dist-packages (from requests<3.0,>=2.30.0->responses->genai-perf) (3.10)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests<3.0,>=2.30.0->responses->genai-perf) (2025.8.3)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich->genai-perf) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich->genai-perf) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich->genai-perf) (0.1.2)
+Requirement already satisfied: cffi>=1.0 in /usr/local/lib/python3.12/dist-packages (from soundfile->genai-perf) (1.17.1)
+Requirement already satisfied: pycparser in /usr/local/lib/python3.12/dist-packages (from cffi>=1.0->soundfile->genai-perf) (2.22)
+Requirement already satisfied: scipy!=1.9.2,>=1.8 in /usr/local/lib/python3.12/dist-packages (from statsmodels->genai-perf) (1.16.1)
+Collecting patsy>=0.5.6 (from statsmodels->genai-perf)
+  Downloading patsy-1.0.2-py2.py3-none-any.whl.metadata (3.6 kB)
+Requirement already satisfied: filelock in /usr/local/lib/python3.12/dist-packages (from transformers->genai-perf) (3.19.1)
+Requirement already satisfied: huggingface-hub<1.0,>=0.34.0 in /usr/local/lib/python3.12/dist-packages (from transformers->genai-perf) (0.35.1)
+Requirement already satisfied: regex!=2019.12.17 in /usr/local/lib/python3.12/dist-packages (from transformers->genai-perf) (2025.9.1)
+Requirement already satisfied: tokenizers<0.22,>=0.21 in /usr/local/lib/python3.12/dist-packages (from transformers->genai-perf) (0.21.4)
+Requirement already satisfied: safetensors>=0.4.3 in /usr/local/lib/python3.12/dist-packages (from transformers->genai-perf) (0.6.2)
+Requirement already satisfied: hf-xet<2.0.0,>=1.1.3 in /usr/local/lib/python3.12/dist-packages (from huggingface-hub<1.0,>=0.34.0->transformers->genai-perf) (1.1.10)
+Downloading genai_perf-0.0.16-py3-none-any.whl (3.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 48.3 MB/s  0:00:00
+Downloading optuna-3.6.1-py3-none-any.whl (380 kB)
+Downloading alembic-1.17.0-py3-none-any.whl (247 kB)
+Downloading sqlalchemy-2.0.44-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 66.4 MB/s  0:00:00
+Downloading greenlet-3.2.4-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (607 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 607.6/607.6 kB 26.9 MB/s  0:00:00
+Downloading colorlog-6.10.1-py3-none-any.whl (11 kB)
+Downloading fastparquet-2024.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 78.5 MB/s  0:00:00
+Downloading cramjam-2.11.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 51.1 MB/s  0:00:00
+Downloading pandas-2.3.3-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (12.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.4/12.4 MB 43.2 MB/s  0:00:00
+Downloading pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Downloading tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+Downloading kaleido-1.1.0-py3-none-any.whl (66 kB)
+Downloading choreographer-1.2.0-py3-none-any.whl (56 kB)
+Downloading logistro-2.0.0-py3-none-any.whl (8.5 kB)
+Downloading orjson-3.11.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (132 kB)
+Downloading pytest_timeout-2.4.0-py3-none-any.whl (14 kB)
+Downloading simplejson-3.20.2-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (152 kB)
+Downloading mako-1.3.10-py3-none-any.whl (78 kB)
+Downloading perf_analyzer-2.59.1-py3-none-manylinux_2_38_x86_64.whl (7.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 41.3 MB/s  0:00:00
+Downloading plotly-6.3.1-py3-none-any.whl (9.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.8/9.8 MB 45.2 MB/s  0:00:00
+Downloading narwhals-2.9.0-py3-none-any.whl (422 kB)
+Downloading pyarrow-21.0.0-cp312-cp312-manylinux_2_28_x86_64.whl (42.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 42.8/42.8 MB 55.8 MB/s  0:00:00
+Downloading pytest_mock-3.15.1-py3-none-any.whl (10 kB)
+Downloading responses-0.25.8-py3-none-any.whl (34 kB)
+Downloading statsmodels-0.14.5-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (10.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.4/10.4 MB 71.2 MB/s  0:00:00
+Downloading patsy-1.0.2-py2.py3-none-any.whl (233 kB)
+Installing collected packages: pytz, perf-analyzer, tzdata, simplejson, pyarrow, patsy, orjson, narwhals, Mako, logistro, greenlet, cramjam, colorlog, sqlalchemy, responses, pytest-timeout, pytest-mock, plotly, pandas, choreographer, statsmodels, kaleido, fastparquet, alembic, optuna, genai-perf
+
+Successfully installed Mako-1.3.10 alembic-1.17.0 choreographer-1.2.0 colorlog-6.10.1 cramjam-2.11.0 fastparquet-2024.11.0 genai-perf-0.0.16 greenlet-3.2.4 kaleido-1.1.0 logistro-2.0.0 narwhals-2.9.0 optuna-3.6.1 orjson-3.11.3 pandas-2.3.3 patsy-1.0.2 perf-analyzer-2.59.1 plotly-6.3.1 pyarrow-21.0.0 pytest-mock-3.15.1 pytest-timeout-2.4.0 pytz-2025.2 responses-0.25.8 simplejson-3.20.2 sqlalchemy-2.0.44 statsmodels-0.14.5 tzdata-2025.2
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+[2025-10-24 02:24:02] INFO     Profiling these models:       create_config.py:58
+                               gemma3-1b-instruct-lora_vhf-s                    
+                               quad-v1                                          
+[2025-10-24 02:24:02] WARNING  Skipping unreachable metrics    subcommand.py:223
+                               URL:                                             
+                               http://localhost:9400/metrics                    
+[2025-10-24 02:24:02] INFO     Creating tokenizer for:         subcommand.py:190
+                               google/gemma-3-1b-pt                             
+[2025-10-24 02:24:29] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               gemma3-1b-instruct-lora_vhf-squa                 
+                               d-v1 --async                                     
+                               --stability-percentage 999                       
+                               --request-count 10 -i http -u                    
+                               nim-gemma-3-1b-lora-service:8000                 
+                               --concurrency-range 1                            
+                               --service-kind openai --endpoint                 
+                               v1/completions --input-data                      
+                               artifacts/gemma3-1b-instruct-lor                 
+                               a_vhf-squad-v1-openai-completion                 
+                               s-concurrency1/inputs.json                       
+                               --profile-export-file                            
+                               artifacts/gemma3-1b-instruct-lor                 
+                               a_vhf-squad-v1-openai-completion                 
+                               s-concurrency1/profile_export.js                 
+                               on'                                              
+[2025-10-24 02:24:30] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               'artifacts/gemma3-1b-in                          
+                               struct-lora_vhf-squad-v                          
+                               1-openai-completions-co                          
+                               ncurrency1/profile_expo                          
+                               rt.json'                                         
+[2025-10-24 02:24:30] INFO     Parsing total 10   llm_profile_data_parser.py:124
+                               requests.                                        
+
+Progress:   0%|          | 0/10 [00:00<?, ?requests/s]
+Progress: 100%|██████████| 10/10 [00:00<00:00, xxx.02requests/s]
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+┃              Statistic ┃    avg ┃    min ┃    max ┃    p99 ┃    p90 ┃    p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+│    Time To First Token │  │
+│                   (ms) │        │        │        │        │        │        │
+│   Time To Second Token │   │
+│                   (ms) │        │        │        │        │        │        │
+│   Request Latency (ms) │   │
+│    Inter Token Latency │    │
+│                   (ms) │        │        │        │        │        │        │
+│           Output Token │  │
+│    Throughput Per User │        │        │        │        │        │        │
+│      (tokens/sec/user) │        │        │        │        │        │        │
+│ Output Sequence Length │   │
+│               (tokens) │        │        │        │        │        │        │
+│  Input Sequence Length │  │
+│               (tokens) │        │        │        │        │        │        │
+│           Output Token │ │    N/A │    N/A │    N/A │    N/A │    N/A │
+│             Throughput │        │        │        │        │        │        │
+│           (tokens/sec) │        │        │        │        │        │        │
+│     Request Throughput │  │    N/A │    N/A │    N/A │    N/A │    N/A │
+│              (per sec) │        │        │        │        │        │        │
+│  Request Count (count) │   │    N/A │    N/A │    N/A │    N/A │    N/A │
+└────────────────────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+[2025-10-24 02:24:31] INFO     Generating                    json_exporter.py:64
+                               artifacts/gemma3-1b-instruct-                    
+                               lora_vhf-squad-v1-openai-comp                    
+                               letions-concurrency1/profile_                    
+                               export_genai_perf.json                           
+[2025-10-24 02:24:31] INFO     Generating                     csv_exporter.py:75
+                               artifacts/gemma3-1b-instruct-l                   
+                               ora_vhf-squad-v1-openai-comple                   
+                               tions-concurrency1/profile_exp                   
+                               ort_genai_perf.csv                               
+[2025-10-24 02:24:35] INFO     Profiling these models:       create_config.py:58
+                               google/gemma-3-1b-pt                             
+[2025-10-24 02:24:35] WARNING  Skipping unreachable metrics    subcommand.py:223
+                               URL:                                             
+                               http://localhost:9400/metrics                    
+[2025-10-24 02:24:35] INFO     Model name            perf_analyzer_config.py:157
+                               'google/gemma-3-1b-pt                            
+                               ' cannot be used to                              
+                               create artifact                                  
+                               directory. Instead,                              
+                               'google_gemma-3-1b-pt                            
+                               ' will be used.                                  
+[2025-10-24 02:24:35] INFO     Creating tokenizer for:         subcommand.py:190
+                               google/gemma-3-1b-pt                             
+[2025-10-24 02:24:54] INFO     Running Perf Analyzer :          subcommand.py:98
+                               'perf_analyzer -m                                
+                               google/gemma-3-1b-pt --async                     
+                               --stability-percentage 999                       
+                               --request-count 10 -i http -u                    
+                               nim-gemma-3-1b-lora-service:8000                 
+                               --concurrency-range 1                            
+                               --service-kind openai --endpoint                 
+                               v1/completions --input-data                      
+                               artifacts/google_gemma-3-1b-pt-o                 
+                               penai-completions-concurrency1/i                 
+                               nputs.json --profile-export-file                 
+                               artifacts/google_gemma-3-1b-pt-o                 
+                               penai-completions-concurrency1/p                 
+                               rofile_export.json'                              
+[2025-10-24 02:24:55] INFO     Loading response data   profile_data_parser.py:66
+                               from                                             
+                               'artifacts/google_gemma                          
+                               -3-1b-pt-openai-complet                          
+                               ions-concurrency1/profi                          
+                               le_export.json'                                  
+[2025-10-24 02:24:55] INFO     Parsing total 10   llm_profile_data_parser.py:124
+                               requests.                                        
+
+Progress:   0%|          | 0/10 [00:00<?, ?requests/s]
+Progress: 100%|██████████| 10/10 [00:00<00:00, XXX.33requests/s]
+                        NVIDIA GenAI-Perf | LLM Metrics                         
+┏━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓
+┃              Statistic ┃    avg ┃    min ┃    max ┃    p99 ┃    p90 ┃    p75 ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━╇━━━━━━━━┩
+│    Time To First Token │   │
+│                   (ms) │        │        │        │        │        │        │
+│   Time To Second Token │   │
+│                   (ms) │        │        │        │        │        │        │
+│   Request Latency (ms) │   │
+│    Inter Token Latency │  │
+│                   (ms) │        │        │        │        │        │        │
+│           Output Token │  │
+│    Throughput Per User │        │        │        │        │        │        │
+│      (tokens/sec/user) │        │        │        │        │        │        │
+│ Output Sequence Length │   │
+│               (tokens) │        │        │        │        │        │        │
+│  Input Sequence Length │  │
+│               (tokens) │        │        │        │        │        │        │
+│           Output Token │ │    N/A │    N/A │    N/A │    N/A │    N/A │
+│             Throughput │        │        │        │        │        │        │
+│           (tokens/sec) │        │        │        │        │        │        │
+│     Request Throughput │  │    N/A │    N/A │    N/A │    N/A │    N/A │
+│              (per sec) │        │        │        │        │        │        │
+│  Request Count (count) │   │    N/A │    N/A │    N/A │    N/A │    N/A │
+└────────────────────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+[2025-10-24 02:24:56] INFO     Generating                    json_exporter.py:64
+                               artifacts/google_gemma-3-1b-p                    
+                               t-openai-completions-concurre                    
+                               ncy1/profile_export_genai_per                    
+                               f.json                                           
+[2025-10-24 02:24:56] INFO     Generating                     csv_exporter.py:75
+                               artifacts/google_gemma-3-1b-pt                   
+                               -openai-completions-concurrenc                   
+                               y1/profile_export_genai_perf.c                   
+                               sv                                               
