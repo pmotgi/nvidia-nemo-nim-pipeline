@@ -4,7 +4,7 @@ This project provides a complete MLOps pipeline for fine-tuning and deploying La
 
 ## Overview
 
-![Architecture Diagram](HLD.png)
+![Architecture Diagram](hld2.png)
 
 The pipeline is designed to automate the following steps:
 
